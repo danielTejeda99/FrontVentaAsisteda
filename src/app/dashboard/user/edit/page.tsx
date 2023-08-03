@@ -1,22 +1,16 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import UserController from "@/controllers/user.controller"
-import RoleController from "@/controllers/role.controller"
-import { Table,UserEditModal } from '@/ui/components';
-import { SearchUser} from '@/ui/components'
-import { useSearchParams } from 'next/navigation';
+import { Table } from '@/ui/components';
+import { SearchUser } from '@/ui/components'
 import { Pagination } from 'flowbite-react';
 
 
-export default function () {
-    const searchParams = useSearchParams();
+export default function UserEditById() {
     const { getAllUsers, users, itemsHead, page, setPage, searchUser, changeStatus,
-        render, showModal, onRequestClose, messageModal, handleEditUser, 
-        showModalEdit, showCampos, handleShowCampos, selectedRole,selectedTypeId,onChangeSelect, roles, fetchRequest,
-        handleGetBaseForm,  onClickChk, handleUpdateAlliesForm, handleEndDateChange } = UserController();
-
-
-
+        render,
+        showModalEdit, fetchRequest,
+        handleGetBaseForm } = UserController();
     useEffect(() => {
         getAllUsers();
         handleGetBaseForm();
@@ -32,7 +26,7 @@ export default function () {
                 onPageChange={page => { setPage(page) }}
                 totalPages={10}
                 className='p-5'
-            />      
+            />
 
         </div>
     )

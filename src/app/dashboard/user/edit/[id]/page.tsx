@@ -3,12 +3,16 @@ import CustomModal from '@/ui/modals';
 import UserController from '@/controllers/user.controller';
 import { UserForm } from '@/ui/components'
 import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 interface Props {
     [x: string]: any
 }
 
-function EditUser({ userEdit, dataForm, idDataForm }: Props) {
+export default function EditUser() {
+    const dataForm = useSelector((state: any) => state.userSalesFormReducer.saleForm);
+    const userEdit = useSelector((state: any) => state.userEditReducer);
+    const idDataForm = useSelector((state: any) => state.userSalesFormReducer.id);
+
     const { getAllUsers, users, itemsHead, page, setPage, searchUser, changeStatus,
         showModal, onRequestClose, messageModal, handleEditUser,
         showModalEdit, showCampos, handleShowCampos, selectedRole, selectedTypeId, onChangeSelect, roles, fetchRequest, handleSearchUser,
@@ -41,10 +45,3 @@ function EditUser({ userEdit, dataForm, idDataForm }: Props) {
 }
 
 
-const mapStateToProps = (state: any) => ({
-    userEdit: state.userEditReducer,
-    dataForm: state.userSalesFormReducer.saleForm,
-    idDataForm: state.userSalesFormReducer.id
-});
-
-export default connect(mapStateToProps)(EditUser);

@@ -1,16 +1,13 @@
 'use client'
 import { UserForm } from '@/ui/components'
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import  CustomModal  from '@/ui/modals';
 import UserController from '@/controllers/user.controller';
-import { connect } from 'react-redux';
-
-interface Props{
-    [x:string]: any
-}
+import { useSelector } from 'react-redux';
 
 
-function User({dataForm}:Props) {
+export default function User(){
+    const dataForm = useSelector((state: any) => state.userSalesFormReducer.saleForm);
     const {fetchRequest,handleCreateUser,roles,showModal,
          onRequestClose, messageModal, handleEditUser, 
         showModalEdit, showCampos, handleShowCampos, onChangeSelect, selectedRole, selectedTypeId,
@@ -40,11 +37,3 @@ function User({dataForm}:Props) {
         </div>
     )
 }
-
-
-const mapStateToProps = (state: any) => ({
-    userEdit: state.userEditReducer,
-    dataForm: state.userSalesFormReducer.saleForm
-});
-
-export default connect(mapStateToProps)(User);
