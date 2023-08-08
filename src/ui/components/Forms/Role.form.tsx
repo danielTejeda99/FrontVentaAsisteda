@@ -4,7 +4,6 @@ import { MyFormik } from '@/ui/components'
 import { Form } from 'formik'
 import { TextInput, TextAreaInput, CheckBox, Toggle } from '@/ui/components'
 import { BiPencil } from 'react-icons/bi';
-
 // Definimos una interfaz llamada 'permissions' que describe la estructura de los objetos de permisos.
 
 interface permissions {
@@ -63,7 +62,7 @@ const RoleForm = ({ permissions, onSubmit, data, type, permissionsAdd, ...props 
                         label="Descripción rol"
                         name="descriptionRol"
                     />
-                    <div className='grid md:grid-cols-3 gap-4'>
+                    <div className='grid md:grid-cols-3 gap-4 '>
 
                         {permissions.map((item: permissions, index: number) => (
                             // Mostramos una lista de CheckBoxes para los diferentes permisos disponibles.
@@ -80,14 +79,14 @@ const RoleForm = ({ permissions, onSubmit, data, type, permissionsAdd, ...props 
 
                             {type === 'edit' ? <Toggle label='Activar o desactivar rol' name='isActive' checked={data.isActive} /> : null}</div>
 
-                    </div>
-                    <button type='submit' className='bg-blue-500 px-8 py-2 rounded-md w-full text-white  hover:bg-blue-700'>
+                        {/* Botón para enviar el formulario con el texto correspondiente según el tipo de formulario ('create' o 'edit'). */}
 
-                        <BiPencil className="mr-2 h-5 w-5 inline" />
+                        </div>
+                        <button type='submit' className='bg-blue-500 px-8 py-2 rounded-md w-full text-white  hover:bg-blue-700'>
+                            <BiPencil className="mr-2 h-5 w-5 inline" />
+                            {type === 'create' ? 'Crear Rol' : 'Guardar cambios'}
+                        </button>
 
-                        {type === 'create' ? 'Crear Rol' : 'Guardar cambios'}
-
-                    </button>
                 </Form>
             )
             }

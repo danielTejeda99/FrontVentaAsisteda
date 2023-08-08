@@ -11,7 +11,7 @@ const DatePickerComponent = ({ label,selectedDate,handleDateChange, ...props }: 
     return (
         <div className='flex flex-col'>
             {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold inline w-auto"}>{label}</label>}
-            <div className='inline flex flex-col w-full'>
+            <div className='flex flex-col w-full'>
                 <DatePicker
                     selected={selectedDate}
                     onChange={handleDateChange}

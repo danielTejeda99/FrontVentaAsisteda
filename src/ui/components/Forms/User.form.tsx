@@ -1,6 +1,7 @@
 // Importamos los componentes necesarios de la librería '@/ui/components', 'formik' y otros módulos requeridos.
-import { Form, Field } from 'formik'
-import { TextInput, CustomSelect, MyFormik, SalesForm, DatePicker, MultiSelect, Toggle } from '@/ui/components'
+
+import { Form, } from 'formik'
+import { TextInput, CustomSelect, MyFormik, SalesForm, DatePicker, MultiSelect } from '@/ui/components'
 import { BiPlusCircle } from 'react-icons/bi';
 
 // Definimos una interfaz llamada 'Props' que describe las propiedades que acepta el componente.
@@ -89,7 +90,6 @@ function UserForm({ onSubmit, roles, data, disabledEmail, showCampos, handleShow
                             />
                             <CustomSelect label="Tipo documento"//TODO: AGREGAR onChange
                                 name="typeId" data={typesId}
-                                labelstyle="font-bold mr-3 inline w-50"
                                 onChange={(event: any) => onChangeSelect(event.target.value, 'typeId')}
                                 value={selectedTypeId} />
 
@@ -105,18 +105,18 @@ function UserForm({ onSubmit, roles, data, disabledEmail, showCampos, handleShow
                         />
 
                         <TextInput
-
+                            label="Dirección de residencia"
+                            name="address"
+                            placeholder='Ingrese la dirección de residencia'
+                        />
+                        <TextInput
                             label="Correo electrónico"
 
                             name="email"
 
                             disabled={disabledEmail}
-
                             placeholder='Ingrese el correo electrónico'
-
                         />
-
-
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                             <TextInput
                                 label="Teléfono"
@@ -129,7 +129,6 @@ function UserForm({ onSubmit, roles, data, disabledEmail, showCampos, handleShow
 
                             <CustomSelect label="Rol del usuario"
                                 name="roleId" data={roles}
-                                labelstyle="font-bold mr-3 inline w-50"
                                 onChange={(event: any) => onChangeSelect(event.target.value, 'role')}
                                 value={selectedRole} />
 
@@ -143,32 +142,26 @@ function UserForm({ onSubmit, roles, data, disabledEmail, showCampos, handleShow
                             </>}
                         </div>
 
-                        {selectedRole == 3 && <div className='flex'>
-                            <div className=''><label htmlFor='name' className={"font-bold mr-3 inline w-full"}>Aliados asignados</label></div>
-                            <div className='w-full'><MultiSelect label="Aliados asignados"
-                                options={aliados} onChange={onChangeMultiSelect} defaultValue={defaultValueMultiSelect} /></div>
-                        </div>}
-                        <div className='grid grid-cols-2 gap-4 '>
-                            {data && <Toggle label='Activar o desactivar usuario' name='isActive' checked={data.isActive} />}
-                            <Field name="isActive">
-                                {({ field }: any) => (
-                                    (data && !field.value) && <div className='flex'>
-                                        <div className=''><label htmlFor='name' className={"font-bold mr-3 inline w-full"}>Fecha de retiro</label></div>
-                                        <div className='w-full'><DatePicker label='Fecha de retiro' selectedDate={selectedEndDate} handleDateChange={handleEndDateChange} block={type === 'edit' ? true : false} /></div>
-                                    </div>
-                                )}
-                            </Field>
-
-                        </div>
+                            {selectedRole == 3 && <DatePicker label='Fecha de ingreso' selectedDate={selectedDate} handleDateChange={handleDateChange} />}
+                            {selectedRole == 3 && <CustomSelect label="Supervisor"
+                                name="supervisor" data={supervisores}
+                                onChange={(event: any) => onChangeSelect(event.target.value, 'supervisor')}
+                                value={selectedSupervisor} />}
 
 
 
+
+
+                        {selectedRole == 3 && <MultiSelect label="Aliados asignados"
+                            options={aliados} onChange={onChangeMultiSelect} />}
                         {selectedRole == 4 && <SalesForm showCampos={showCampos} handleShowCampos={handleShowCampos}
                             dataForm={dataForm} onClickChk={onClickChk} showFields={showFields} type={type} handleUpdateAlliesForm={handleUpdateAlliesForm} />}
 
 
                         <button type='submit' className='bg-blue-500 flex py-4 px-3 items-center justify-center rounded-md md:float-right text-white hover:bg-blue-700 w-full md:w-auto'>
                             {data ? 'Guardar cambios' : 'Crear usuario'}
+                            <BiPlusCircle className="mr-2 h-5 w-5" />
+                            {data ? 'Editar usuario' : 'Crear usuario'}
                         </button>
 
                     </Form>

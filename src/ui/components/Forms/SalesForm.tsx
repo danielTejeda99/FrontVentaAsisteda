@@ -20,21 +20,15 @@ function SalesForm({ showCampos, handleShowCampos, dataForm, onClickChk, showFie
                 {dataForm.map((item: any, index: number) => (
                     <div key={index} className='grid grid-cols-1 md:grid-cols-3 gap-4 my-8 text-sm'>
                         <p className='font-bold'>{item.name}</p>
-                        <div className='flex md:justify-center'>
 
+                        <div className='flex md:justify-center'>
                             <CheckBox label='¿Obligatoria?' name='required' value='required'
                                 checked={item.required} onClick={() => { onClickChk(item.name, 'required') }}
                             />
-
                         </div>
-
                         <div className='flex md:justify-center'>
-
                             <CheckBox label='¿Visible en el formulario?' name='visible' value='required' checked={item.disabled} onClick={() => { onClickChk(item.name, 'disabled') }} />
-
                         </div>
-
-
 
                     </div>
                 ))}

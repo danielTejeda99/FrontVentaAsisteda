@@ -49,6 +49,7 @@ const Menu: React.FC<Props> = ({ handleSignout, modules }) => {
                     ))}
                     <Sidebar.Item
                     >
+                        
                         <BiLogOut className="mr-2 h-5 w-5 inline" />
                         <span onClick={handleSignout}>Cerrar sesión</span>
                     </Sidebar.Item>

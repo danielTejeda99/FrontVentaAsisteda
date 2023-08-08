@@ -27,19 +27,13 @@ export default function SearchForm({ submit }: Props) {
                 form={() => (
                     <Form className='flex text-black'>
                         <label className='relative'>
-
                             <div className='absolute top-2 ml-1'>
-
                                 <BiSearch className="mr-2 h-5 w-5 inline" />
-
                             </div><TextInput
-
                                 label=""
 
                                 name="value"
-
                                 className="pl-7 rounded-lg"
-
                             /></label>
                         <button type='submit' className='border px-5 bg-blue-500 hover:bg-blue-700 text-white rounded-md ml-5'>Buscar</button>
                     </Form>

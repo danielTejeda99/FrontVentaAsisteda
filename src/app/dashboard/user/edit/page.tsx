@@ -26,7 +26,7 @@ export default function UserEditById() {
                 onPageChange={page => { setPage(page) }}
                 totalPages={10}
                 className='p-5 mb-5'
-            />
+            />      
 
         </div>
     )
