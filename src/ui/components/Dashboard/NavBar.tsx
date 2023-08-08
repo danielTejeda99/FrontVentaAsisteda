@@ -9,7 +9,7 @@ const NavBar = () => {
         <Navbar
             fluid
             rounded
-            className='border'
+            className='border text-black'
         >
             <Navbar.Brand href="https://flowbite-react.com">
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">

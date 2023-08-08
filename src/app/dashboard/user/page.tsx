@@ -24,7 +24,7 @@ function User({dataForm}:Props) {
     }, [])
 
     return (
-        <div className='px-20 py-10'>
+        <div className='px-10 py-10 md:px-20 text-black'>
             <h1 className='font-bold mb-8 text-lg'>Registrar Usuarios</h1>
             <UserForm onSubmit={handleCreateUser} roles={roles} showCampos={showCampos} handleShowCampos={handleShowCampos} 
                     dataForm={dataForm} onClickChk={onClickChk} showFields={handleShowCampos} handleUpdateAlliesForm={handleUpdateAlliesForm} 

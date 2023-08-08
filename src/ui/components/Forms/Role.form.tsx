@@ -3,6 +3,7 @@
 import { MyFormik } from '@/ui/components'
 import { Form } from 'formik'
 import { TextInput, TextAreaInput, CheckBox, Toggle } from '@/ui/components'
+import { BiPencil } from 'react-icons/bi';
 // Definimos una interfaz llamada 'permissions' que describe la estructura de los objetos de permisos.
 
 interface permissions {
@@ -52,7 +53,7 @@ const RoleForm = ({ permissions, onSubmit, data, type, permissionsAdd, ...props 
             initialValues={initialValues}
             onSubmit={onSubmit}
             form={() => (
-                <Form className='space-y-10'>
+                <Form className='space-y-6 flex flex-col'>
                     <TextInput
                         label="Nombre del rol"
                         name="nameRol"
@@ -61,7 +62,7 @@ const RoleForm = ({ permissions, onSubmit, data, type, permissionsAdd, ...props 
                         label="Descripción rol"
                         name="descriptionRol"
                     />
-                    <div className='grid grid-cols-2 gap-4 '>
+                    <div className='grid md:grid-cols-3 gap-4 '>
 
                         {permissions.map((item: permissions, index: number) => (
                             // Mostramos una lista de CheckBoxes para los diferentes permisos disponibles.
@@ -72,18 +73,20 @@ const RoleForm = ({ permissions, onSubmit, data, type, permissionsAdd, ...props 
                                 name="permissions" value={item.value} checked={type === 'create' ? undefined : permissionsAdd.some((x: any) => x.value === item.value && x.id === data.id)} onClick={type === 'create' ? undefined : () => props.onClickChk(item, data.id)} />
                         ))}
                     </div>
-                    <div className="flex justify-between">
-                        <div className="float-left">
+                    <div className="flex flex-col justify-between">
+                        <div className="items-center flex mb-3 flex-col self-center">
                             {/* Si el formulario es de edición, mostramos un componente Toggle para activar o desactivar el rol. */}
 
                             {type === 'edit' ? <Toggle label='Activar o desactivar rol' name='isActive' checked={data.isActive} /> : null}</div>
-                        <div className="float-right">
-                            {/* Botón para enviar el formulario con el texto correspondiente según el tipo de formulario ('create' o 'edit'). */}
 
-                            <button type='submit' className='bg-gray-200 px-8 py-2 rounded-md'>
-                                {type === 'create' ? 'Crear Rol' : 'Guardar cambios'}
-                            </button></div>
-                    </div>
+                        {/* Botón para enviar el formulario con el texto correspondiente según el tipo de formulario ('create' o 'edit'). */}
+
+                        </div>
+                        <button type='submit' className='bg-blue-500 px-8 py-2 rounded-md w-full text-white  hover:bg-blue-700'>
+                            <BiPencil className="mr-2 h-5 w-5 inline" />
+                            {type === 'create' ? 'Crear Rol' : 'Guardar cambios'}
+                        </button>
+
                 </Form>
             )
             }

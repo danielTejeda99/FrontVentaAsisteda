@@ -71,7 +71,7 @@ export default function StripedRows({ itemHead, data, changeStatus,editUser }: P
                             <CustomButton title='Editar' onClick={() => editUser(item)} icon='edit'/>
                             </Table.Cell>
                             <Table.Cell>
-                                <CustomButton color='bg-orange-400' title={item.isActive ? 'Desactivar' : 'Activar'} onClick={() => changeStatus(item)}/>
+                                <CustomButton title={item.isActive ? 'Desactivar' : 'Activar'} onClick={() => changeStatus(item)}/>
                             </Table.Cell>
 
                         </Table.Row>

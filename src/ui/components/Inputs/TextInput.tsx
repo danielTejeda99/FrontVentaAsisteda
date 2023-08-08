@@ -17,9 +17,9 @@ const MyTextInput = ({ label, ...props }: Props) => {
   const [field] = useField(props);
 
   return (
-    <div className='flex '>
-      {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold mr-3 inline w-15"}>{label}</label>}
-      <div className='inline flex flex-col w-85'>
+    <div className='flex flex-col'>
+      {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold inline w-auto"}>{label}</label>}
+      <div className='inline w-full'>
         {/* Utilizamos el elemento input para renderizar el campo de entrada de texto */}
         {/* El 'type', 'id' y el 'name' se obtienen de las propiedades 'type', 'name' y 'id', respectivamente */}
         {/* También utilizamos el hook useField para agregar atributos y eventos al input */}

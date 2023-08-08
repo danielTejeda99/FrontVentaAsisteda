@@ -17,8 +17,8 @@ interface Children {
 
 const CustomSelect = ({ label, name, data, ...props }: Props) => {
     return (
-        <div className='flex '>
-            <label htmlFor={name} className={props.labelstyle ?props.labelstyle: "font-bold mr-3 inline w-15"}>{label}</label>
+        <div className='flex flex-col'>
+            <label htmlFor={name} className={props.labelstyle ?props.labelstyle: "font-bold inline w-auto"}>{label}</label>
             {/* Utilizamos el componente Field de 'formik' para renderizar el campo de selección */}
             {/* Usamos 'as="select"' para especificar que queremos que se renderice como una lista desplegable */}
             {/* El 'id' y el 'name' se obtienen de la propiedad 'name', y se asocia a las etiquetas 'for' y 'name' */}

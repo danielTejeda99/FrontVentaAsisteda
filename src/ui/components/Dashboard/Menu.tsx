@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link'
 import { Sidebar } from 'flowbite-react';
+import { BiLogOut } from 'react-icons/bi';
 
 
 // Definimos una interfaz llamada Props que describe las propiedades que acepta el componente.
@@ -13,7 +14,7 @@ interface Props {
 const Menu: React.FC<Props> = ({ handleSignout, modules }) => {
 
     return (
-        <Sidebar aria-label="Sidebar with multi-level dropdown example" className='w-25 border'>
+        <Sidebar aria-label="Sidebar with multi-level dropdown example" className='hidden w-25 md:block border'>
             <Sidebar.Items>
                 <Sidebar.ItemGroup>
                     {modules.map((item: any, index) => (
@@ -49,7 +50,9 @@ const Menu: React.FC<Props> = ({ handleSignout, modules }) => {
                     ))}
                     <Sidebar.Item
                     >
-                      <span onClick={handleSignout}>Cerrar sesión</span>  
+                        
+                        <BiLogOut className="mr-2 h-5 w-5 inline" />
+                        <span onClick={handleSignout}>Cerrar sesión</span>
                     </Sidebar.Item>
 
 
