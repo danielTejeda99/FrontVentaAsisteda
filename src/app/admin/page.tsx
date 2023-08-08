@@ -6,6 +6,7 @@ import { setUser } from '@/redux/slices/users/userSlice';
 import { getUserAndToken } from '@/request/auth';
 import { signout } from '@/request/auth';
 import CookiesUtils from '@/utils/cookieUtils';
+
 export default function Admin() {
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();

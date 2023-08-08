@@ -14,7 +14,6 @@ interface Props {
 
 
 function Dashboard({ logout, modules, children, toast }: Props) {
-    console.log("user", toast)
     const dispatch = useAppDispatch();
 
     const onCloseToast = () => {

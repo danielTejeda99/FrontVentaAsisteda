@@ -1,5 +1,5 @@
 export const request = async (url: string| undefined,method: string,data: object | undefined,token:string | undefined) => {
-    const baseUrl = 'http://localhost:4000';
+    const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
     const apiUrl = `${baseUrl}${url}`//TODO: variable de entorno
     const header = {
         'Content-Type': 'application/json',

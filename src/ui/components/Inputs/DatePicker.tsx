@@ -7,17 +7,17 @@ interface Props {
 }
 
 const DatePickerComponent = ({ label,selectedDate,handleDateChange, ...props }: Props) => {
-    
-
+    const today = new Date();
     return (
-        <div className='flex '>
-            {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold mr-3 inline w-15"}>{label}</label>}
-            <div className='inline flex flex-col w-85'>
+        <div className='flex flex-col'>
+            {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold inline w-auto"}>{label}</label>}
+            <div className='inline flex flex-col w-full'>
                 <DatePicker
                     selected={selectedDate}
                     onChange={handleDateChange}
-                    className="input input-bordered"
-                    placeholderText="Select date"
+                    className="input input-bordered w-full rounded-md"
+                    placeholderText="Seleccionar fecha de ingreso"
+                    maxDate={props.block ? today : null}
                 />
             </div>
         </div>

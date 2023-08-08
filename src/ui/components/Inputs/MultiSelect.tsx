@@ -5,21 +5,22 @@ interface Props {
     [x: string]: any; // Otras propiedades opcionales.
 }
 
-const MultiSelect = ({ label, options,onChange, ...props }: Props) => {
+const MultiSelect = ({ label, options,onChange,defaultValue, ...props }: Props) => {
    
 
     return (
-        <div className='flex '>
-            {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold mr-3 inline w-15"}>{label}</label>}
-            <div className='inline flex flex-col w-85'>
+        <div className='flex flex-col'>
+            {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold inline w-auto"}>{label}</label>}
+            <div className='inline w-full'>
                 <Select
                     isMulti
                     id="aliados"
                     name="aliados"
                     options={options}
-                    className="basic-multi-select"
+                    className="basic-multi-select w-full" 
                     classNamePrefix="select"
                     onChange={onChange}
+                    defaultValue={defaultValue}
                 />
             </div>
         </div>

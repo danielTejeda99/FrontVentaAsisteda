@@ -1,12 +1,13 @@
+// 'use client'
 import { useState, useEffect } from 'react';
 import CookiesUtils from '@/utils/cookieUtils';
 import { createUser, getUsers, getUsersByTerm, editUser, getUsersByRoleId } from '@/request/user';
-import { createConfigAlly, configAlly, editConfigAlly } from '@/request/allies';
+import { createConfigAlly, configAlly, editConfigAlly, createAlliesAdvisor, getAlliesAdvisor } from '@/request/allies';
 import { getRoles } from '@/request/roles'
 import { useAppDispatch } from '@/redux/hooks';
 import { setToast } from '@/redux/slices/toastSlice';
 import { useRouter } from 'next/navigation';
-import { setUserEdit, setUserPolicy } from '@/redux/slices/users/userEditSlice';
+import { setUserEdit, setUserPolicy, setAllies } from '@/redux/slices/users/userEditSlice';
 import { setSalesForm, setIdForm } from '@/redux/slices/users/userSaleFormSlice';
 
 interface contentModal {
@@ -34,21 +35,21 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
     const [showCampos, setShowCampos] = useState<boolean>(false);
     const [selectedRole, setSelectedRole] = useState<number>(userData ? userData.roleId : 0)
     const [selectedTypeId, setSelectedTypeId] = useState<string>(userData ? userData.typeId : '')
-    const [selectedSupervisor, setSelectedSupervisor] = useState<number>(userData ? userData.roleId : 0)
+    const [selectedSupervisor, setSelectedSupervisor] = useState<number>(userData ? userData.supervisorId : null)
     const [saleForm, setDataForm] = useState<DataForm[]>(dataForm)
     // const [idDataForm, setIdDataForm] = useState<number>();
     const [aliados, setAliados] = useState<any[]>();
     const [supervisores, setSupervisores] = useState<any[]>([]);
-    const [selectedAliados, setSelectedAliados] = useState<any[]>();
+    const [selectedAliados, setSelectedAliados] = useState<any[]>([]);
+    const [defaultAllies, setDefaultAllies] = useState<any[]>([]);
     const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedEndDate, setSelectedEndDate] = useState(null);
     const dispatch = useAppDispatch();
 
 
     const router = useRouter();
     useEffect(() => {
         setDataForm(dataForm);
-
-
     }, [])
 
 
@@ -64,33 +65,47 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
             isActive: true,
             roleId: Number(selectedRole),
             supervisorId: selectedSupervisor,
-            aliados: selectedAliados,
             advisorStartDate: selectedDate
         }
-        console.log(data);
-        // const result = await createUser(data, token);
-        // if (result.statusCode === 200) {
-        //     const data = {
-        //         allyId: result.data.id,
-        //         attributes: JSON.stringify(dataForm),
-        //         dataPolicy: values.usagePolicy,
-        //         noEssentialDataPolicy: JSON.stringify([])
-        //     }
-        //     const resConfigAlly = await createConfigAlly(token, data);
-        //     if (resConfigAlly.statusCode === 200) {
-        //         setMessageModal({ title: 'Exito', description: 'El usuario se creó de manera exitosa' })
-        //         setShowModal(true);
-        //     } else {
-        //         setMessageModal({ title: 'Exito', description: 'El usuario se creó de manera exitosa, Pero ocurrió un error al guardar la configuración del formulario' })
-        //         setShowModal(true);
-        //     }
-        // } else if (result.status === 409) {
-        //     setMessageModal({ title: 'Error', description: 'El usuario ya se encuentra registrado' })
-        //     setShowModal(true);
-        // } else {
-        //     setMessageModal({ title: 'Error', description: 'Ocurrió un error al crear el usuario' })
-        //     setShowModal(true);
-        // }
+        if (!selectedRole || !selectedTypeId) {
+            setMessageModal({ title: 'Error', description: 'Complete todos los campos' })
+            setShowModal(true);
+        } else {
+            const result = await createUser(data, token);
+            if (result.statusCode === 200) {
+                const data = {
+                    allyId: result.data.id,
+                    attributes: JSON.stringify(dataForm),
+                    dataPolicy: values.usagePolicy,
+                    noEssentialDataPolicy: JSON.stringify([])
+                }
+
+                if (selectedRole == 4) {
+                    const resConfigAlly = await createConfigAlly(token, data);
+                }
+                if (selectedRole == 3) {
+                    let aux = []
+                    for (const item of selectedAliados) {
+                        const dataCreate = {
+                            advisorId: result.data.id,
+                            allyId: item
+                        }
+                        aux.push(dataCreate)
+                    }
+                    const resCreate = await createAlliesAdvisor(token, aux);
+                }
+                setMessageModal({ title: 'Exito', description: 'El usuario se creó de manera exitosa' })
+                setShowModal(true);
+
+            } else if (result.status === 409) {
+                setMessageModal({ title: 'Error', description: 'El usuario ya se encuentra registrado' })
+                setShowModal(true);
+            } else {
+                setMessageModal({ title: 'Error', description: 'Ocurrió un error al crear el usuario' })
+                setShowModal(true);
+            }
+        }
+
     }
 
     const onRequestClose = () => {
@@ -98,7 +113,10 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
     }
 
     const fetchRequest = async () => {
-        const rolesAux: any = [];
+        const rolesAux: any = [{
+            name: 'Seleccionar',
+            value: ''
+        }];
         const result = await getRoles(token);
         if (result.statusCode === 200) {
             for (const item of result.data) {
@@ -160,9 +178,14 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
             phone: user.number,
             identificationType: user.typeId,
             identification: user.id,
+            isActive: user.isActive,
+            advisorEndDate: selectedEndDate,
+            roleId: Number(selectedRole),
+            supervisorId: selectedSupervisor,
+            advisorStartDate: selectedDate
         }
         const response = await editUser(token, user.userId, body)
-        if (response.statusCode === 200) {
+        if (response.statusCode === 200 && selectedRole == 4) {
             const data = {
                 allyId: user.userId,
                 attributes: JSON.stringify(dataForm),
@@ -171,35 +194,19 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
             }
             const resConfigAlly = await editConfigAlly(token, data, idDataForm);
             if (resConfigAlly.statusCode === 200) {
-                const dataAux = {
-                    message: 'Usuario actualizado con éxito',
-                    show: true,
-                    type: 'success'
-                }
-                setRender(!render);
-                setShowModal(false);
-                dispatch(setToast(dataAux));
+                setMessageModal({ title: 'Exito', description: 'Usuario actualizado con éxito' })
+                setShowModal(true);               
             } else {
-                const dataAux = {
-                    message: 'Usuario actualizado con éxito, pero ocuarrio un error al actualizar formulario de venta',
-                    show: true,
-                    type: 'success'
-                }
-                setRender(!render);
-                setShowModal(false);
-                dispatch(setToast(dataAux));
+                setMessageModal({ title: 'Exito', description: 'Usuario actualizado con éxito, pero ocuarrio un error al actualizar formulario de venta' })
+                setShowModal(true);                
             }
-
-        } else {
-            const dataAux = {
-                message: 'Error actualizando usuario',
-                show: true,
-                type: 'error'
-            }
-            setShowModal(false);
-            dispatch(setToast(dataAux));
+        } else if(response.statusCode === 200){
+            setMessageModal({ title: 'Exito', description: 'Usuario actualizado con éxito' })
+            setShowModal(true);  
+        }else {
+            setMessageModal({ title: 'Error', description: 'Error actualizando usuario' })
+            setShowModal(true);             
         }
-
     }
 
     const showModalEdit = async (user: any) => {
@@ -212,18 +219,34 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
             number: user.phone,
             typeId: user.identificationType,
             roleId: user.roleId,
-            userId: user.id
+            userId: user.id,
+            isActive: user.isActive
         }
-
-        const response = await configAlly(token, undefined, user.id);
-        if (response.statusCode === 200) {
-            const data = response.data.attributes;
-            dispatch(setIdForm({ id: response.data.id }));
-            dispatch(setSalesForm({ saleForm: data }));
-            if (response.data.dataPolicy) {
-                dispatch(setUserPolicy({ usagePolicy: response.data.dataPolicy }));
+        const resAllies = await getAlliesAdvisor(token,user.id);
+        if(resAllies.statusCode === 200 && resAllies.data.length > 0){
+            let auxArry = [], defaultAlliesAux = [];
+        for (const item of resAllies.data) {
+            auxArry.push(item.allyId)
+            defaultAlliesAux.push({
+                value: item.allyId,
+                label: item.name
+            })
+        }
+            setSelectedAliados(auxArry);
+            dispatch(setAllies({allies: defaultAlliesAux}));
+        }
+        if(user.roleId == 4){
+            const response = await configAlly(token, undefined, user.id);
+            if (response.statusCode === 200) {
+                const data = response.data.attributes;
+                dispatch(setIdForm({ id: response.data.id }));
+                dispatch(setSalesForm({ saleForm: data }));
+                if (response.data.dataPolicy) {
+                    dispatch(setUserPolicy({ usagePolicy: response.data.dataPolicy }));
+                }
             }
         }
+        
         dispatch(setUserEdit(data));
         router.push(`/dashboard/user/edit/${user.id}`);
     }
@@ -247,7 +270,6 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
     }
 
     const onChangeSelect = (value: any, type: string) => {
-        console.log(value)
         if (type === 'role') setSelectedRole(value)
         if (type === 'typeId') setSelectedTypeId(value)
         if (type === 'supervisor') setSelectedSupervisor(value)
@@ -287,7 +309,10 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
 
     const handleGetUserByRol = async () => {
         let auxArry = [];
-        let auxArrySupervisores = [];
+        let auxArrySupervisores = [{
+            name: 'Seleccionar',
+            value: null
+        }];
         const resultAliados = await getUsersByRoleId(token, 4);
         const resultSupervisores = await getUsersByRoleId(token, 5);
         if (resultAliados.statusCode === 200) {
@@ -310,17 +335,19 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
         setAliados(auxArry)
     }
 
-    const onChangeMultiSelect = async (values:any) => {
-         let auxArry = [];
-         for (const item of values) {
+    const onChangeMultiSelect = async (values: any) => {
+        let auxArry = [];
+        for (const item of values) {
             auxArry.push(item.value)
-         }
-         setSelectedAliados(auxArry);
+        }
+        setSelectedAliados(auxArry);
     }
-
 
     const handleDateChange = (date: any) => {
         setSelectedDate(date);
+    };
+    const handleEndDateChange = (date: any) => {
+        setSelectedEndDate(date);
     };
 
     return {
@@ -356,7 +383,11 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
         supervisores,
         selectedSupervisor,
         selectedDate,
-        handleDateChange
+        handleDateChange,
+        handleEndDateChange,
+        selectedEndDate,
+        selectedAliados,
+        defaultAllies
     }
 }
 

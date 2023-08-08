@@ -25,9 +25,9 @@ export default function StripedRows({ itemHead, data, changeStatus,editUser }: P
                     <Table.HeadCell>
                         Editar
                     </Table.HeadCell>
-                    <Table.HeadCell>
+                    {/* <Table.HeadCell>
                         Activar/Desactivar
-                    </Table.HeadCell>
+                    </Table.HeadCell> */}
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {data.map((item: any, index) => (
@@ -70,9 +70,9 @@ export default function StripedRows({ itemHead, data, changeStatus,editUser }: P
                             <Table.Cell>
                             <CustomButton title='Editar' onClick={() => editUser(item)} icon='edit'/>
                             </Table.Cell>
-                            <Table.Cell>
+                            {/* <Table.Cell>
                                 <CustomButton color='bg-orange-400' title={item.isActive ? 'Desactivar' : 'Activar'} onClick={() => changeStatus(item)}/>
-                            </Table.Cell>
+                            </Table.Cell> */}
 
                         </Table.Row>
                     ))}

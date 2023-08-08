@@ -10,7 +10,9 @@ const initialState: any = {
     typeId: null,
     roleId: null,
     userId: '',
-	usagePolicy: ''
+	usagePolicy: '',
+	isActive: null,
+	allies: []
 }
 
 export const userEditSlice = createSlice({
@@ -18,7 +20,7 @@ export const userEditSlice = createSlice({
 	initialState,
 	reducers: {
 		setUserEdit(state, action: PayloadAction<any>) {
-			const { name, lastName, id, address, email, number, typeId, roleId,userId} = action.payload;
+			const { name, lastName, id, address, email, number, typeId, roleId,userId, isActive} = action.payload;
 			state.name = name;
 			state.lastName = lastName;
 			state.id = id;
@@ -28,14 +30,18 @@ export const userEditSlice = createSlice({
 			state.typeId = typeId;
 			state.roleId = roleId;
 			state.userId = userId;
+			state.isActive = isActive;
 		  },
 		setUserPolicy(state, action: PayloadAction<any>){
 			const { usagePolicy} = action.payload;
 			state.usagePolicy = usagePolicy;
-
+		},
+		setAllies(state, action: PayloadAction<any>){
+			const { allies} = action.payload;
+			state.allies = allies;
 		}
 	},
 })
 
-export const { setUserEdit,setUserPolicy} = userEditSlice.actions
+export const { setUserEdit,setUserPolicy, setAllies} = userEditSlice.actions
 export default userEditSlice.reducer;

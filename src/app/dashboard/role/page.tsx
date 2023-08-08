@@ -18,10 +18,10 @@ export default function Role() {
 
 
     return (
-        <div className='px-20 py-10'>
+        <div className='px-10 py-10 text-black md:px-20'>
             <h1 className='font-bold mb-8 text-lg'>Gestionar Roles</h1>
             <RoleForm permissions={permissions} onSubmit={handleCreateRole} data={undefined} type='create' permissionsAdd={permissionsAdd} onClickChk={onClickChk} />
-            <h1 className='font-bold mb-8 text-lg'>Roles Creados</h1>
+            <h1 className='font-bold my-8 text-lg'>Roles Creados</h1>
             {roles.map((item: any, index: number) => (
                 <div key={index}>
                     <div className='bg-gray-500 px-4 py-2 rounded-md mb-5 flex justify-between' key={index}>

@@ -1,19 +1,16 @@
 'use client'
 import { UserForm } from '@/ui/components'
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import  CustomModal  from '@/ui/modals';
 import UserController from '@/controllers/user.controller';
-import { connect } from 'react-redux';
-
-interface Props{
-    [x:string]: any
-}
+import { useSelector } from 'react-redux';
 
 
-function User({dataForm}:Props) {
+export default function User(){
+    const dataForm = useSelector((state: any) => state.userSalesFormReducer.saleForm);
     const {fetchRequest,handleCreateUser,roles,showModal,
-         onRequestClose, messageModal, handleEditUser, 
-        showModalEdit, showCampos, handleShowCampos, onChangeSelect, selectedRole, selectedTypeId,
+         onRequestClose, messageModal,  
+        showCampos, handleShowCampos, onChangeSelect, selectedRole, selectedTypeId,
         onClickChk, handleUpdateAlliesForm, handleGetBaseForm, handleGetUserByRol,aliados, onChangeMultiSelect, supervisores,
         selectedSupervisor,selectedDate,handleDateChange} = UserController(dataForm);    
 
@@ -24,7 +21,7 @@ function User({dataForm}:Props) {
     }, [])
 
     return (
-        <div className='px-20 py-10'>
+        <div className='px-10 py-10 text-black md:px-20'>
             <h1 className='font-bold mb-8 text-lg'>Registrar Usuarios</h1>
             <UserForm onSubmit={handleCreateUser} roles={roles} showCampos={showCampos} handleShowCampos={handleShowCampos} 
                     dataForm={dataForm} onClickChk={onClickChk} showFields={handleShowCampos} handleUpdateAlliesForm={handleUpdateAlliesForm} 
@@ -40,11 +37,3 @@ function User({dataForm}:Props) {
         </div>
     )
 }
-
-
-const mapStateToProps = (state: any) => ({
-    userEdit: state.userEditReducer,
-    dataForm: state.userSalesFormReducer.saleForm
-});
-
-export default connect(mapStateToProps)(User);
