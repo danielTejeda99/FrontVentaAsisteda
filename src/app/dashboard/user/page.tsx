@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux';
 export default function User(){
     const dataForm = useSelector((state: any) => state.userSalesFormReducer.saleForm);
     const {fetchRequest,handleCreateUser,roles,showModal,
-         onRequestClose, messageModal, handleEditUser, 
-        showModalEdit, showCampos, handleShowCampos, onChangeSelect, selectedRole, selectedTypeId,
+         onRequestClose, messageModal,  
+        showCampos, handleShowCampos, onChangeSelect, selectedRole, selectedTypeId,
         onClickChk, handleUpdateAlliesForm, handleGetBaseForm, handleGetUserByRol,aliados, onChangeMultiSelect, supervisores,
         selectedSupervisor,selectedDate,handleDateChange} = UserController(dataForm);    
 
@@ -21,7 +21,7 @@ export default function User(){
     }, [])
 
     return (
-        <div className='px-20 py-10'>
+        <div className='px-10 py-10 text-black md:px-20'>
             <h1 className='font-bold mb-8 text-lg'>Registrar Usuarios</h1>
             <UserForm onSubmit={handleCreateUser} roles={roles} showCampos={showCampos} handleShowCampos={handleShowCampos} 
                     dataForm={dataForm} onClickChk={onClickChk} showFields={handleShowCampos} handleUpdateAlliesForm={handleUpdateAlliesForm} 

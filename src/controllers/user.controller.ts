@@ -1,3 +1,4 @@
+// 'use client'
 import { useState, useEffect } from 'react';
 import CookiesUtils from '@/utils/cookieUtils';
 import { createUser, getUsers, getUsersByTerm, editUser, getUsersByRoleId } from '@/request/user';
