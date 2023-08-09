@@ -44,6 +44,12 @@ function SalesForm({ showCampos, handleShowCampos, dataForm, onClickChk, showFie
                     <p >A continuación ingresa el texto de la politica de uso de datos que deseas asociar:</p>
                     <TextAreaInput name='usagePolicy' label='' />
                 </div>
+                <div className='relative py-2 space-y-2'>
+                    <hr className="border-t border-gray-400"></hr>
+                    <p className='font-bold'>Configuración del uso de datos particulares del aliado</p>
+                    <p >A continuación ingresa el texto de la politica de uso de datos particulares que deseas asociar:</p>
+                    <TextAreaInput name='usagePolicyParticular' label='' />
+                </div>
             </div>
         </div>
     )
