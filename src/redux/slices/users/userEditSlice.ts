@@ -12,7 +12,8 @@ const initialState: any = {
     userId: '',
 	usagePolicy: '',
 	isActive: null,
-	allies: []
+	allies: [],
+	usagePolicyParticular: ''
 }
 
 export const userEditSlice = createSlice({
@@ -33,8 +34,9 @@ export const userEditSlice = createSlice({
 			state.isActive = isActive;
 		  },
 		setUserPolicy(state, action: PayloadAction<any>){
-			const { usagePolicy} = action.payload;
+			const { usagePolicy, usagePolicyParticular} = action.payload;
 			state.usagePolicy = usagePolicy;
+			state.usagePolicyParticular = usagePolicyParticular;
 		},
 		setAllies(state, action: PayloadAction<any>){
 			const { allies} = action.payload;

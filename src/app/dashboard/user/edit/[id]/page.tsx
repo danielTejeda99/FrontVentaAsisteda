@@ -14,14 +14,13 @@ export default function EditUser() {
 
     const { getAllUsers,
         showModal, onRequestClose, messageModal, handleEditUser,
-        showCampos, handleShowCampos, selectedRole, selectedTypeId, onChangeSelect, roles, fetchRequest, handleSearchUser,
+        showCampos, handleShowCampos, selectedRole, selectedTypeId, onChangeSelect, roles, fetchRequest, 
         onClickChk, handleUpdateAlliesForm, aliados, onChangeMultiSelect, supervisores,
         selectedSupervisor, selectedDate, handleDateChange, handleEndDateChange, selectedEndDate, handleGetUserByRol, onClickChkNonEssential } = UserController(dataForm, nonEssentialForm, userEdit, idDataForm,);
 
     useEffect(() => {
-        getAllUsers();
+        // getAllUsers();
         fetchRequest();
-        handleSearchUser(1);
         handleGetUserByRol();
     }, []);
 

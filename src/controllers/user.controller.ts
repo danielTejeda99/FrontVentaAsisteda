@@ -86,7 +86,8 @@ export default function UserController(dataForm?: any, nonEssentialDataForm?: an
                     allyId: result.data.id,
                     attributes: JSON.stringify(dataForm),
                     dataPolicy: values.usagePolicy,
-                    noEssentialDataPolicy: JSON.stringify(nonEssentialDataForm)
+                    noEssentialDataPolicy: JSON.stringify(nonEssentialDataForm),
+                    privateDataPolicy: values.usagePolicyParticular
                 }
 
                 if (selectedRole == 4) {
@@ -251,7 +252,7 @@ export default function UserController(dataForm?: any, nonEssentialDataForm?: an
                 dispatch(setSalesForm({ saleForm: data }));
                 dispatch(setNonEssentialForm({ nonEssentialForm: response.data.noEssentialDataPolicy }))
                 if (response.data.dataPolicy) {
-                    dispatch(setUserPolicy({ usagePolicy: response.data.dataPolicy }));
+                    dispatch(setUserPolicy({ usagePolicy: response.data.dataPolicy, usagePolicyParticular: response.data.privateDataPolicy  }));
                 }
             }
         }
@@ -264,20 +265,7 @@ export default function UserController(dataForm?: any, nonEssentialDataForm?: an
         setShowCampos(!showCampos)
     }
 
-    const handleSearchUser = (id: any) => {
-        setUserEdit({
-            name: 'test',
-            lastName: 'test',
-            id: 'test',
-            address: 'test',
-            email: 'test',
-            number: 'test',
-            typeId: 'test',
-            roleId: 'test',
-            userId: 'test'
-        });
-    }
-
+   
     const onChangeSelect = (value: any, type: string) => {
         if (type === 'role') setSelectedRole(value)
         if (type === 'typeId') setSelectedTypeId(value)
@@ -395,7 +383,6 @@ export default function UserController(dataForm?: any, nonEssentialDataForm?: an
         onChangeSelect,
         selectedRole,
         selectedTypeId,
-        handleSearchUser,
         onClickChk,
         handleGetBaseForm,
         handleUpdateAlliesForm,
