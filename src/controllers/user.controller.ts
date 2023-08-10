@@ -77,7 +77,8 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
                     allyId: result.data.id,
                     attributes: JSON.stringify(dataForm),
                     dataPolicy: values.usagePolicy,
-                    noEssentialDataPolicy: JSON.stringify([])
+                    noEssentialDataPolicy: JSON.stringify([]),
+                    privateDataPolicy: values.usagePolicyParticular
                 }
 
                 if (selectedRole == 4) {
@@ -242,7 +243,7 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
                 dispatch(setIdForm({ id: response.data.id }));
                 dispatch(setSalesForm({ saleForm: data }));
                 if (response.data.dataPolicy) {
-                    dispatch(setUserPolicy({ usagePolicy: response.data.dataPolicy }));
+                    dispatch(setUserPolicy({ usagePolicy: response.data.dataPolicy, usagePolicyParticular: response.data.privateDataPolicy  }));
                 }
             }
         }
@@ -255,20 +256,7 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
         setShowCampos(!showCampos)
     }
 
-    const handleSearchUser = (id: any) => {
-        setUserEdit({
-            name: 'test',
-            lastName: 'test',
-            id: 'test',
-            address: 'test',
-            email: 'test',
-            number: 'test',
-            typeId: 'test',
-            roleId: 'test',
-            userId: 'test'
-        });
-    }
-
+   
     const onChangeSelect = (value: any, type: string) => {
         if (type === 'role') setSelectedRole(value)
         if (type === 'typeId') setSelectedTypeId(value)
@@ -373,7 +361,6 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
         onChangeSelect,
         selectedRole,
         selectedTypeId,
-        handleSearchUser,
         onClickChk,
         handleGetBaseForm,
         handleUpdateAlliesForm,
