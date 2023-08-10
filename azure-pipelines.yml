@@ -131,7 +131,7 @@ stages:
         azureSubscription: 'az-devqa-sub-colmena'
         azureContainerRegistry: '{"loginServer":"azscdevcraks000.azurecr.io", "id" : "/subscriptions/d92c9bc4-d242-48e1-a224-9b9c93d46134/resourceGroups/az-sc-dev-rg-aks-000/providers/Microsoft.ContainerRegistry/registries/azscdevcraks000"}'
         dockerFile: Dockerfile
-        imageName: 'sc-venta-asistida:$(passOutput.versionTag)'
+        imageName: 'sc-venta-asistida-front:$(passOutput.versionTag)'
         additionalImageTags: $(passOutput.versionTag)
 
     - task: AzureCLI@2
@@ -152,7 +152,7 @@ stages:
         azureSubscription: 'az-devqa-sub-colmena'
         azureContainerRegistry: '{"loginServer":"azscdevcraks000.azurecr.io", "id" : "/subscriptions/d92c9bc4-d242-48e1-a224-9b9c93d46134/resourceGroups/az-sc-dev-rg-aks-000/providers/Microsoft.ContainerRegistry/registries/azscdevcraks000"}'
         action: 'Push an image'
-        imageName: 'sc-venta-asistida:$(passOutput.versionTag)'        
+        imageName: 'sc-venta-asistida-front:$(passOutput.versionTag)'        
         includeSourceTags: true
 
     - task: AzureCLI@2
