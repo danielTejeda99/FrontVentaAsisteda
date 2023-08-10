@@ -1,0 +1,209 @@
+# prueba 4
+parameters:
+- name: image
+  displayName: Pool Image
+  type: string
+  default: ubuntu-latest
+  values:
+  - ubuntu-latest
+  - macOS-latest
+- name: patchRelease
+  displayName: Patch type
+  type: string
+  default: patch
+  values:
+  - major
+  - minor
+  - patch
+
+resources:
+  repositories:
+  - repository: rep_A144_VentaAsistida_Frontend
+    type: git
+    name: CI_app_A144_VentaAsistida/rep_A144_VentaAsistida_Frontend
+    ref: dev
+    trigger:
+      branches:
+        include:
+          - dev
+  - repository: rep_A144_VentaAsistida_Manifiestos
+    type: git
+    name: CI_app_A144_VentaAsistida/rep_A144_VentaAsistida_Manifiestos
+    ref: main
+    trigger:
+      branches:
+        exclude:
+          - '*'
+
+stages:
+- stage: deployDev
+  displayName: Desplegar Aplicacion
+  jobs:
+  - job: generateArtifact
+    pool:
+      vmImage: ${{ parameters.image }}
+    steps:
+    - checkout: rep_A144_VentaAsistida_Frontend
+      persistCredentials: true
+      clean: true
+
+    - script: |
+        git config --global user.email "pipeline@fundaciongruposocial.co"
+        git config --global user.name "pipeline"
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      displayName: Set git u
+
+    - task: Npm@1
+      displayName: 'npm install'  
+      inputs:  
+        verbose: false
+
+    - task: Npm@1
+      displayName: 'npm audit fix'
+      inputs:
+        command: custom
+        verbose: false
+        customCommand: audit fix --registry=https://registry.npmjs.org/
+
+    - task: Npm@1
+      displayName: 'npm audit'
+      inputs:
+        command: custom
+        verbose: false
+        customCommand: audit --omit=dev --registry=https://registry.npmjs.org/
+
+    - task: Npm@1
+      displayName: 'npm run build'
+      inputs:
+        command: custom
+        verbose: true
+        customCommand: run build
+
+    - script: |
+        npm i -g standard-version
+        git fetch --all
+        git switch $(basename dev)
+        ls -la 
+        git rev-parse --abbrev-ref HEAD
+        git ls-remote --tags origin
+        git fetch --unshallow
+        standard-version --release-as ${{ parameters.patchRelease }} --releaseCommitMessageFormat "chore(release): {{currentTag}} [skip ci]"
+        git push --follow-tags origin $(basename dev)
+      displayName: 'Standard version'
+
+    - bash: |
+        git switch $(basename dev)
+        git rev-parse --abbrev-ref HEAD
+        # Get new tags from remote
+        git fetch --tags
+        # Get latest tag name
+        latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+        echo $latestTag
+        echo "##vso[task.setvariable variable=versionTag;isoutput=true]"$latestTag
+      name: passOutput
+      displayName: Switch Repository
+
+    - task: replacetokens@5
+      displayName: 'Replace tokens in **/*.env'
+      inputs:
+        targetFiles: '**/*.env'
+        tokenPattern: azpipelines
+        escapeType: none
+
+    - task: AzureCLI@2
+      displayName: 'Add pipeline ip to registry'
+      inputs:
+        azureSubscription: 'az-devqa-sub-colmena'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          agentIp=$(curl -s http://checkip.dyndns.com | sed 's/[^0-9\.]*//g') 
+          sleep 2
+          echo $agentIp
+          agentIp=${agentIp%${agentIp##*.}}0/24 
+          echo $agentIp
+          echo "===== ADDING NEW IP TO REGISTRY SHELL =====" 
+          az acr network-rule add -n azscdevcraks000 --ip-address $agentIp
+
+    - task: Docker@0
+      displayName: 'Build image'
+      inputs:
+        azureSubscription: 'az-devqa-sub-colmena'
+        azureContainerRegistry: '{"loginServer":"azscdevcraks000.azurecr.io", "id" : "/subscriptions/d92c9bc4-d242-48e1-a224-9b9c93d46134/resourceGroups/az-sc-dev-rg-aks-000/providers/Microsoft.ContainerRegistry/registries/azscdevcraks000"}'
+        dockerFile: Dockerfile
+        imageName: 'sc-venta-asistida:$(passOutput.versionTag)'
+        additionalImageTags: $(passOutput.versionTag)
+
+    - task: AzureCLI@2
+      displayName: 'Check IP'
+      inputs:
+        azureSubscription: 'az-devqa-sub-colmena'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          agentIp=$(curl -s http://checkip.dyndns.com | sed 's/[^0-9\.]*//g') 
+          agentIp=${agentIp%${agentIp##*.}}0/24 
+          echo $agentIp
+          sleep 30
+
+    - task: Docker@0
+      displayName: 'Push image'
+      inputs:
+        azureSubscription: 'az-devqa-sub-colmena'
+        azureContainerRegistry: '{"loginServer":"azscdevcraks000.azurecr.io", "id" : "/subscriptions/d92c9bc4-d242-48e1-a224-9b9c93d46134/resourceGroups/az-sc-dev-rg-aks-000/providers/Microsoft.ContainerRegistry/registries/azscdevcraks000"}'
+        action: 'Push an image'
+        imageName: 'sc-venta-asistida:$(passOutput.versionTag)'        
+        includeSourceTags: true
+
+    - task: AzureCLI@2
+      displayName: 'Remove ip from registry'
+      inputs:
+        azureSubscription: 'az-devqa-sub-colmena'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          agentIp=$(curl -s http://checkip.dyndns.com | sed 's/[^0-9\.]*//g') 
+          agentIp=${agentIp%${agentIp##*.}}0/24 
+          echo $agentIp
+          echo "===== REMOVE IP FROM REGISTRY SHELL =====" 
+          az acr network-rule remove -n azscdevcraks000 --ip-address $agentIp
+
+- stage: UpdateManifest
+  displayName: Deploy Dev
+  dependsOn: deployDev
+  jobs:
+  - job: Manifest
+    variables:
+    - name: versionApp
+      value: $[ stageDependencies.deployDev.generateArtifact.outputs['passOutput.versionTag'] ]
+    pool: 
+      vmImage: ${{ parameters.image }}
+    steps:
+    - checkout: rep_A144_VentaAsistida_Manifiestos
+      persistCredentials: true
+      clean: true
+
+    - script: |
+        git config --global user.email "pipeline@fundaciongruposocial.co"
+        git config --global user.name "pipeline"
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      displayName: Set git user
+
+    - script: |
+        git fetch --all
+        git switch $(basename main)
+        ls -la 
+        git rev-parse --abbrev-ref HEAD
+        git ls-remote --tags origin
+        git fetch --unshallow
+
+        file_path=$(find ./application1 -name app_frontend.yaml)
+        sed -ri 's/v[0-9]+.[0-9]+.[0-9]+/$(versionApp)/g' $file_path 
+        echo "============"
+        echo $(versionApp)
+        echo "============"
+        
+        git add .
+        git commit -m "chore(ci): updated file [$file_path] to version [$(versionApp)]"
+        git push -u origin $(basename main)
+      displayName: 'Update manifest tag version'
