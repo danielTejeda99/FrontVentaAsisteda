@@ -1,6 +1,6 @@
 // Importamos los componentes necesarios de la librería '@/ui/components', 'formik' y otros módulos requeridos.
 
-import { CheckBox, TextAreaInput } from '@/ui/components'
+import {CheckBox, TextAreaInput } from '@/ui/components'
 
 // Definimos una interfaz llamada 'Props' que describe las propiedades que acepta el componente.
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 // Declaramos el componente funcional UserForm, que acepta las propiedades especificadas en la interfaz Props.
 
-function SalesForm({ dataForm, onClickChk, values }: Props) {
+function SalesForm({  dataForm, onClickChk, values }: Props) {
     // Definimos reglas de validación para el formulario.
     return (
         <div>
