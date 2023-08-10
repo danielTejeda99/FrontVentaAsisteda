@@ -69,7 +69,7 @@ function UserForm({ onSubmit, roles, data, disabledEmail, showCampos, handleShow
             <MyFormik
                 initialValues={data ? data : initialValues}
                 onSubmit={onSubmit}
-                form={() => (
+                form={({ values, handleChange, handleSubmit }:any) => (
                     <Form className='space-y-6 pb-20 '>
                         <TextInput
                             label="Nombres"
@@ -166,7 +166,7 @@ function UserForm({ onSubmit, roles, data, disabledEmail, showCampos, handleShow
 
                         {selectedRole == 4 && 
                             <>
-                            <SalesForm dataForm={dataForm} onClickChk={onClickChk}  /> 
+                            <SalesForm dataForm={dataForm} onClickChk={onClickChk} values={values} /> 
                             <NonEssentialForm dataForm={nonEssentialForm} onClickChk={onClickChkNonEssential} /> 
                             </>}
 
