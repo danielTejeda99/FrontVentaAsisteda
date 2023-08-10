@@ -1,3 +1,4 @@
+import NonEssentialForm from './Forms/NonEssentialForm';
 export { default as CustomButton } from './Button/CustomButton'
 export { default as SocialButton } from './Button/SocialButton'
 export { default as TextInput } from './Inputs/TextInput'
@@ -19,3 +20,4 @@ export { default as UserEditModal } from './Modals/UserEdit'
 export { default as SalesForm } from './Forms/SalesForm'
 export { default as DatePicker } from './Inputs/DatePicker'
 export { default as MultiSelect } from './Inputs/MultiSelect'
+export {default as NonEssentialForm} from './Forms/NonEssentialForm'

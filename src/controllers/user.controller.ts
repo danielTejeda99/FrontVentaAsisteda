@@ -9,6 +9,7 @@ import { setToast } from '@/redux/slices/toastSlice';
 import { useRouter } from 'next/navigation';
 import { setUserEdit, setUserPolicy, setAllies } from '@/redux/slices/users/userEditSlice';
 import { setSalesForm, setIdForm } from '@/redux/slices/users/userSaleFormSlice';
+import { setNonEssentialForm } from '@/redux/slices/users/userNonEssentialFormSlice';
 
 interface contentModal {
     title: string;
@@ -22,7 +23,13 @@ interface DataForm {
     type: string
 }
 
-export default function UserController(dataForm?: any, userData?: any, idDataForm?: any) {
+interface NonEssentialDataForm {
+    name: string,
+    disabled: boolean,
+    type: string
+}
+
+export default function UserController(dataForm?: any, nonEssentialDataForm?: any, userData?: any, idDataForm?: any,) {
     const [roles, setRoles] = useState<any>([]);
     const [showModal, setShowModal] = useState<boolean>(false)
     const [messageModal, setMessageModal] = useState<contentModal>({ title: '', description: '' })
@@ -37,6 +44,7 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
     const [selectedTypeId, setSelectedTypeId] = useState<string>(userData ? userData.typeId : '')
     const [selectedSupervisor, setSelectedSupervisor] = useState<number>(userData ? userData.supervisorId : null)
     const [saleForm, setDataForm] = useState<DataForm[]>(dataForm)
+    const [nonEssentialForm, setNonEssentialDataForm] = useState<NonEssentialDataForm[]>(nonEssentialDataForm)
     // const [idDataForm, setIdDataForm] = useState<number>();
     const [aliados, setAliados] = useState<any[]>();
     const [supervisores, setSupervisores] = useState<any[]>([]);
@@ -50,6 +58,7 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
     const router = useRouter();
     useEffect(() => {
         setDataForm(dataForm);
+        setNonEssentialDataForm(nonEssentialDataForm);
     }, [])
 
 
@@ -77,7 +86,7 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
                     allyId: result.data.id,
                     attributes: JSON.stringify(dataForm),
                     dataPolicy: values.usagePolicy,
-                    noEssentialDataPolicy: JSON.stringify([])
+                    noEssentialDataPolicy: JSON.stringify(nonEssentialDataForm)
                 }
 
                 if (selectedRole == 4) {
@@ -148,7 +157,6 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
         const body = {
             isActive: !data.isActive
         }
-        console.log("aqui")
         const response = await editUser(token, data.id, body)
         if (response.statusCode === 200) {
             const dataAux = {
@@ -190,7 +198,7 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
                 allyId: user.userId,
                 attributes: JSON.stringify(dataForm),
                 dataPolicy: user.usagePolicy,
-                noEssentialDataPolicy: JSON.stringify([])
+                noEssentialDataPolicy: JSON.stringify(nonEssentialDataForm)
             }
             const resConfigAlly = await editConfigAlly(token, data, idDataForm);
             if (resConfigAlly.statusCode === 200) {
@@ -241,6 +249,7 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
                 const data = response.data.attributes;
                 dispatch(setIdForm({ id: response.data.id }));
                 dispatch(setSalesForm({ saleForm: data }));
+                dispatch(setNonEssentialForm({ nonEssentialForm: response.data.noEssentialDataPolicy }))
                 if (response.data.dataPolicy) {
                     dispatch(setUserPolicy({ usagePolicy: response.data.dataPolicy }));
                 }
@@ -289,10 +298,23 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
         dispatch(setSalesForm({ saleForm: arrayAux }));
     }
 
+    const onClickChkNonEssential = (name: string) =>  {
+        let arrayAux: any = [];
+        for (let item of nonEssentialDataForm) {
+            let itemAux = { ...item }
+            if (itemAux.name === name) {
+                itemAux.disabled = !itemAux.disabled
+            }
+            arrayAux.push(itemAux)
+        }
+        dispatch(setNonEssentialForm({ nonEssentialForm: arrayAux }));
+    }
+
     const handleGetBaseForm = async () => {
         const response = await configAlly(token, 1, undefined);
         if (response.statusCode === 200) {
-            dispatch(setSalesForm({ saleForm: response.data }));
+            dispatch(setSalesForm({ saleForm: response.data.attributes }));
+            dispatch(setNonEssentialForm({ nonEssentialForm: response.data.noEssentialDataPolicy }))
         }
     }
 
@@ -387,7 +409,8 @@ export default function UserController(dataForm?: any, userData?: any, idDataFor
         handleEndDateChange,
         selectedEndDate,
         selectedAliados,
-        defaultAllies
+        defaultAllies,
+        onClickChkNonEssential
     }
 }
 

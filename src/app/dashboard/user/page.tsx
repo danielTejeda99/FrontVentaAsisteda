@@ -8,11 +8,13 @@ import { useSelector } from 'react-redux';
 
 export default function User(){
     const dataForm = useSelector((state: any) => state.userSalesFormReducer.saleForm);
+    const nonEssentialForm = useSelector((state: any) => state.userNonEssentialFormReducer.nonEssentialForm);
+
     const {fetchRequest,handleCreateUser,roles,showModal,
          onRequestClose, messageModal,  
         showCampos, handleShowCampos, onChangeSelect, selectedRole, selectedTypeId,
         onClickChk, handleUpdateAlliesForm, handleGetBaseForm, handleGetUserByRol,aliados, onChangeMultiSelect, supervisores,
-        selectedSupervisor,selectedDate,handleDateChange} = UserController(dataForm);    
+        selectedSupervisor,selectedDate,handleDateChange, onClickChkNonEssential} = UserController(dataForm, nonEssentialForm);    
 
     useEffect(() => {
         fetchRequest();
@@ -27,7 +29,7 @@ export default function User(){
                     dataForm={dataForm} onClickChk={onClickChk} showFields={handleShowCampos} handleUpdateAlliesForm={handleUpdateAlliesForm} 
                     onChangeSelect={onChangeSelect} selectedRole={selectedRole} type='create' selectedTypeId={selectedTypeId} aliados={aliados}
                     onChangeMultiSelect={onChangeMultiSelect} supervisores={supervisores} selectedSupervisor={selectedSupervisor} selectedDate={selectedDate}
-                    handleDateChange={handleDateChange}/>
+                    handleDateChange={handleDateChange}  onClickChkNonEssential={onClickChkNonEssential} nonEssentialForm={nonEssentialForm}/>
             <CustomModal isOpen={showModal} onClose={onRequestClose}>
                 <div>
                     <h1>{messageModal.title}</h1>

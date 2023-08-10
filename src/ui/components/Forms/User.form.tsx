@@ -1,6 +1,6 @@
 // Importamos los componentes necesarios de la librería '@/ui/components', 'formik' y otros módulos requeridos.
 import { Form, Field } from 'formik'
-import { TextInput, CustomSelect, MyFormik, SalesForm, DatePicker, MultiSelect, Toggle } from '@/ui/components'
+import { TextInput, CustomSelect, MyFormik, SalesForm, DatePicker, MultiSelect, Toggle, NonEssentialForm } from '@/ui/components'
 import { BiPlusCircle } from 'react-icons/bi';
 
 // Definimos una interfaz llamada 'Props' que describe las propiedades que acepta el componente.
@@ -13,7 +13,7 @@ interface Props {
 
 function UserForm({ onSubmit, roles, data, disabledEmail, showCampos, handleShowCampos, dataForm, onClickChk, showFields,
     handleUpdateAlliesForm, onChangeSelect, selectedRole, type, selectedTypeId, aliados, onChangeMultiSelect, supervisores, selectedSupervisor,
-    selectedDate, handleDateChange, handleEndDateChange, selectedEndDate, defaultValueMultiSelect }: Props) {
+    selectedDate, handleDateChange, handleEndDateChange, selectedEndDate, defaultValueMultiSelect,nonEssentialForm, onClickChkNonEssential }: Props) {
     // Definimos reglas de validación para el formulario.
     const validations = [{
         name: 'name',
@@ -163,8 +163,11 @@ function UserForm({ onSubmit, roles, data, disabledEmail, showCampos, handleShow
 
 
 
-                        {selectedRole == 4 && <SalesForm showCampos={showCampos} handleShowCampos={handleShowCampos}
-                            dataForm={dataForm} onClickChk={onClickChk} showFields={showFields} type={type} handleUpdateAlliesForm={handleUpdateAlliesForm} />}
+                        {selectedRole == 4 && 
+                            <>
+                            <SalesForm dataForm={dataForm} onClickChk={onClickChk}  /> 
+                            <NonEssentialForm dataForm={nonEssentialForm} onClickChk={onClickChkNonEssential} /> 
+                            </>}
 
 
                         <button type='submit' className='bg-blue-500 flex py-4 px-3 items-center justify-center rounded-md md:float-right text-white hover:bg-blue-700 w-full md:w-auto'>

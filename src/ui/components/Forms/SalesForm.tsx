@@ -8,7 +8,7 @@ interface Props {
 }
 // Declaramos el componente funcional UserForm, que acepta las propiedades especificadas en la interfaz Props.
 
-function SalesForm({ showCampos, handleShowCampos, dataForm, onClickChk, showFields, handleUpdateAlliesForm, type }: Props) {
+function SalesForm({dataForm, onClickChk}: Props) {
     // Definimos reglas de validación para el formulario.
     return (
         <div>
@@ -17,7 +17,7 @@ function SalesForm({ showCampos, handleShowCampos, dataForm, onClickChk, showFie
                 <p className='font-bold'>Formularios de venta</p>
             </div>
             <div>
-                {dataForm.map((item: any, index: number) => (
+                {dataForm?.map((item: any, index: number) => (
                     <div key={index} className='grid grid-cols-1 md:grid-cols-3 gap-4 my-8 text-sm'>
                         <p className='font-bold'>{item.name}</p>
                         <div className='flex md:justify-center'>
