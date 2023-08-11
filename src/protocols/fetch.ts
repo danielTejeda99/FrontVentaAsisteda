@@ -1,5 +1,5 @@
 export const request = async (url: string| undefined,method: string,data: object | undefined,token:string | undefined) => {
-    const baseUrl = 'http://4.152.250.41';
+    const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
     const apiUrl = `${baseUrl}${url}`//TODO: variable de entorno
     const header = {
         'Content-Type': 'application/json',
