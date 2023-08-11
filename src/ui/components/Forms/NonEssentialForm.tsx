@@ -1,6 +1,6 @@
 // Importamos los componentes necesarios de la librería '@/ui/components', 'formik' y otros módulos requeridos.
 
-import { CheckBox } from "@/ui/components";
+import { Field } from "formik";
 
 // Definimos una interfaz llamada 'Props' que describe las propiedades que acepta el componente.
 interface Props {
@@ -26,16 +26,11 @@ function NonEssentialForm({ dataForm, onClickChk }: Props) {
             key={index}
             className="flex my-8 text-sm"
           >
-            <div className="flex items-center">
-              <CheckBox
-                label=""
-                name="visible"
-                value="required"
-                checked={item.disabled}
-                onClick={() => {
+            <div className="flex ">
+              <Field type="checkbox" name="visible" value="required" className='mr-2 rounded-md' checked={item.disabled} onClick={() => {
                   onClickChk(item.name);
-                }}
-              />
+                }} />
+
             </div>
             <p className="font-bold">{item.name}</p>
           </div>
