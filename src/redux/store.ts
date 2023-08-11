@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { userSlice,toastSlice, userEditSlice,userSaleFormSlice} from './slices'
+import { userSlice,toastSlice, userEditSlice,userSaleFormSlice, userNonEssentialFormSlice } from './slices'
 import {setupListeners} from '@reduxjs/toolkit/dist/query'
 
 export const store = configureStore({
@@ -7,7 +7,8 @@ export const store = configureStore({
 		userReducer: userSlice,
 		toastReducer: toastSlice,
 		userEditReducer: userEditSlice,
-		userSalesFormReducer: userSaleFormSlice
+		userSalesFormReducer: userSaleFormSlice,
+        userNonEssentialFormReducer: userNonEssentialFormSlice
 	},
 
 	// middleware: (getDefaultMiddleware: any) =>

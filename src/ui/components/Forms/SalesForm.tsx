@@ -17,7 +17,7 @@ function SalesForm({ dataForm, onClickChk, values }: Props) {
                 <p className='font-bold'>Formularios de venta</p>
             </div>
             <div>
-                {dataForm.map((item: any, index: number) => (
+                {dataForm?.map((item: any, index: number) => (
                     <div key={index} className='grid grid-cols-1 md:grid-cols-3 gap-4 my-8 text-sm'>
                         <p className='font-bold'>{item.name}</p>
                         <div className='flex md:justify-center'>
