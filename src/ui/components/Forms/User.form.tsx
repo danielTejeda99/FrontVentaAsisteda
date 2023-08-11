@@ -59,7 +59,8 @@ function UserForm({ onSubmit, roles, data, disabledEmail, showCampos, handleShow
         usagePolicy: '',
         aliados: null,
         supervisor: null,
-        isActive: true
+        isActive: true,
+        usagePolicyParticular: ''
     }
 
     const typesId = [{ name: 'Seleccionar', value: '' }, { name: 'CC', value: 'CC' }, { name: 'NIT', value: 'NIT' }]
