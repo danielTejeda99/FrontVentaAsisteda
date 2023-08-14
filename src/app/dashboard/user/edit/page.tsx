@@ -25,7 +25,7 @@ export default function UserEditById() {
                 currentPage={page}
                 onPageChange={page => { setPage(page) }}
                 totalPages={10}
-                className='p-5 mb-5'
+                className='p-5 float-right mb-5'
             />      
 
         </div>

@@ -1,7 +1,20 @@
 import '@/styles/globals.css'
-import { Inter } from 'next/font/google'
+import { Roboto, Sanchez } from 'next/font/google'
 import { Providers } from '@/redux/provider'
-const inter = Inter({ subsets: ['latin'] })
+
+const roboto = Roboto({
+  weight: ['100', '300', '400', '500', '700', '900'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto',
+})
+
+const sanchez = Sanchez({
+  weight: ['400'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sanchez',
+})
 
 
 export const metadata = {
@@ -15,9 +28,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Providers> 
+    <html lang="en" className={`${roboto.variable} ${sanchez.variable} font-roboto`}>
+      <body>
+        <Providers>
           {children}
         </Providers>
       </body>

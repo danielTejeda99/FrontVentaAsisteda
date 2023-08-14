@@ -12,6 +12,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        roboto: ['var(--font-roboto)'],
+        sanchez: ['var(--font-sanchez)'],
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -27,7 +31,11 @@ module.exports = {
         purple: colors.violet,
         yellow: colors.amber,
         pink: colors.fuchsia,
-        orange: colors.orange
+        orange: colors.orange,
+        'c1': '#FEC82F',
+        'c2':'#0097AE',
+        'c3':'#E6EDF3',
+        'c4':'#E6F3F5',
       },
       width: {
         '15': '15%',

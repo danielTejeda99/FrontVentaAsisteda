@@ -5,8 +5,8 @@ import { signout } from '@/request/auth';
 import { useRouter } from 'next/navigation';
 import CookiesUtils from '@/utils/cookieUtils';
 import Dashboard from '@/ui/layouts/Dashboard';
-import { HiUsers } from 'react-icons/hi';
-import { FaNetworkWired } from 'react-icons/fa';
+import { HiOfficeBuilding, HiUserGroup } from 'react-icons/hi';
+
 
 interface Module {
   id: number;
@@ -49,7 +49,7 @@ export default function AdminLayout({
                 for (const child of filteredModules) {
                   if (child.id === 1) {
                     child.children.push({
-                      description: 'Registrar Usuarios',
+                      description: 'Crear Usuarios',
                       path: '/dashboard/user',
                     })
                   }
@@ -57,11 +57,11 @@ export default function AdminLayout({
               } else {
                 filteredModules.push({
                   id: 1,
-                  description: 'Usuarios',
-                  icon: HiUsers,
+                  description: 'Gestión de Usuarios',
+                  icon: HiOfficeBuilding,
                   children: [
                     {
-                      description: 'Registrar Usuarios',
+                      description: 'Crear Usuarios',
                       path: '/dashboard/user',
                     }
                   ],
@@ -76,7 +76,7 @@ export default function AdminLayout({
                 for (const child of filteredModules) {
                   if (child.id === 1) {
                     child.children.push({
-                      description: 'Actualizar Usuarios',
+                      description: 'Editar Usuarios',
                       path: '/dashboard/user/edit',
                     })
                   }
@@ -105,7 +105,7 @@ export default function AdminLayout({
                 description: 'Gestionar Roles',
                 path: '/dashboard/role',
                 children: [],
-                icon: FaNetworkWired
+                icon: HiUserGroup
               });
             }
           }
@@ -128,7 +128,7 @@ export default function AdminLayout({
 
   return (
     <Dashboard logout={logout} modules={modules}>
-      <div className='w-full overflow-y-scroll h-93'>
+      <div className='w-full overflow-y-scroll h-93 '>
         {children}
       </div>
       {/* {children} */}

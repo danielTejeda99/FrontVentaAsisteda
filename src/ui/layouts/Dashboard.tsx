@@ -33,7 +33,7 @@ function Dashboard({ logout, modules, children, toast }: Props) {
                         <ToastComponent message={toast.message} type={toast.type} close={onCloseToast}/>
                     </div>
                 </div>}
-            <NavBar />
+            <NavBar handleSignout={logout} modules={[]}  />
             <div className="flex h-screen ">
                 <Menu handleSignout={logout} modules={modules} />
                 {children}

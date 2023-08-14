@@ -15,9 +15,9 @@ interface Children {
 const CustomSelect = ({ label, name, data, ...props }: Props) => {
     return (
         <div className='flex flex-col'>
-            <label htmlFor={name} className={props.labelstyle ?props.labelstyle: "font-bold inline w-auto"}>{label}</label>
+            <label htmlFor={name} className={props.labelstyle ?props.labelstyle: "font-bold inline w-auto text-sm mb-3"}>{label}</label>
 
-            <Field as="select" id={name} name={name} className='border border-black-300 h-full rounded-md focus:outline-none focus:border-blue-500 w-full'
+            <Field as="select" id={name} name={name} className='pr-2 py-0 border border-gray-300  rounded-xl focus:border-c2 focus:ring-c2 w-full h-[36px]'
             onChange={props.onChange} value={props.value}>
                 {/* Mapeamos las opciones proporcionadas en la propiedad 'data' y las mostramos como elementos de la lista desplegable */}
 

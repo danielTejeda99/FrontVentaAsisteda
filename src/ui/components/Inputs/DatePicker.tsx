@@ -10,12 +10,12 @@ const DatePickerComponent = ({ label,selectedDate,handleDateChange, ...props }: 
     const today = new Date();
     return (
         <div className='flex flex-col'>
-            {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold inline w-auto"}>{label}</label>}
+            {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold inline w-auto text-sm mb-3"}>{label}</label>}
             <div className='flex flex-col w-full'>
                 <DatePicker
                     selected={selectedDate}
                     onChange={handleDateChange}
-                    className="input input-bordered w-full rounded-md"
+                    className="input input-bordered w-full rounded-xl border-gray-300 focus:border-c2 focus:ring-c2 h-[36px]"
                     placeholderText="Seleccionar fecha de ingreso"
                     maxDate={props.block ? today : null}
                 />

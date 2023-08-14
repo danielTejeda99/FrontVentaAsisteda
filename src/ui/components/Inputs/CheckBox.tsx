@@ -15,12 +15,12 @@ interface Props {
 const CheckBox = ({ label, name, value, ...props }: Props) => {
     return (
         <div className='inline-block'>
-            <label className='flex md:flex-col items-center justify-center md:text-center'>{label}
+            <label className='flex md:flex-row-reverse items-center md:justify-center'>{label}
                 {/* Utilizamos el componente Field de 'formik' para renderizar la casilla de verificación */}
                 {/* El 'type' es 'checkbox', el 'name' se obtiene de la propiedad 'name', el 'value' se obtiene de la propiedad 'value'. */}
                 {/* También podemos utilizar otras propiedades opcionales pasadas a través de 'props', como 'checked' y 'onClick'. */}
 
-                <Field type="checkbox" name={name} value={value} className='ml-3 md:ml-0 rounded-md' checked={props.checked} onClick={props.onClick} /></label>
+                <Field type="checkbox" name={name} value={value} className='ml-3 text-c2 md:mr-3 rounded-md' checked={props.checked} onClick={props.onClick} /></label>
         </div>
     )
 }

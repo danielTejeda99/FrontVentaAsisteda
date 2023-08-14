@@ -4,6 +4,7 @@ import { RoleForm } from '@/ui/components'
 import CustomModal from '@/ui/modals'
 
 import RoleController from '@/controllers/role.controller';
+import { BiPencil } from 'react-icons/bi';
 
 export default function Role() {
     const { token, render, handleCreateRole, permissionsAdd, onClickChk, changeShow, idShowRole, show,
@@ -19,15 +20,15 @@ export default function Role() {
 
 
     return (
-        <div className='px-10 py-10 text-black md:px-20'>
-            <h1 className='font-bold mb-8 text-lg'>Gestionar Roles</h1>
+        <div className='px-10 py-10 text-black'>
+            <h1 className='font-sanchez text-c2 mb-8 text-xl'>Crear Roles</h1>
             <RoleForm permissions={permissions} onSubmit={handleCreateRole} data={undefined} type='create' permissionsAdd={permissionsAdd} onClickChk={onClickChk} />
-            <h1 className='font-bold my-8 text-lg'>Roles Creados</h1>
+            <h1 className='font-sanchez text-c2 my-8 text-xl'>Roles Creados</h1>
             {roles.map((item: any, index: number) => (
                 <div key={index}>
-                    <div className='bg-gray-500 px-4 py-2 rounded-md mb-5 flex justify-between' key={index}>
-                        <h1 className='text-white float-left'>{item.name}</h1>
-                        <button onClick={() => changeShow(index)} className="float-right text-white"><span className='border-b-2'>Editar</span> </button>
+                    <div className='border border-gray-300 px-4 py-2 rounded-xl mb-5 flex justify-between' key={index}>
+                        <h1 className='text-black float-left'>{item.name}</h1>
+                        <button onClick={() => changeShow(index)} className="float-right text-black font-bold flex items-center"><span className='border-b-2'>Editar</span> <BiPencil className="ml-2 h-5 w-5 inline-block" /> </button>
                     </div>
                     {(idShowRole == index && show) && (
                         <div className='mb-5'>

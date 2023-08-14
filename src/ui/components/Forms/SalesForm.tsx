@@ -11,10 +11,9 @@ interface Props {
 function SalesForm({ showCampos, handleShowCampos, dataForm, onClickChk, showFields, handleUpdateAlliesForm, type }: Props) {
     // Definimos reglas de validación para el formulario.
     return (
-        <div>
-            <div className='relative py-2 space-y-2'>
-                <hr className="border-t border-gray-400"></hr>
-                <p className='font-bold'>Formularios de venta</p>
+        <><div className='py-4 px-6 rounded-xl bg-c4'>
+            <div className='relative space-y-2 '>
+                <p className='font-sanchez text-c2 mb-3 text-xl'>Formulario de venta</p>
             </div>
             <div>
                 {dataForm.map((item: any, index: number) => (
@@ -23,8 +22,7 @@ function SalesForm({ showCampos, handleShowCampos, dataForm, onClickChk, showFie
 
                         <div className='flex md:justify-center'>
                             <CheckBox label='¿Obligatoria?' name='required' value='required'
-                                checked={item.required} onClick={() => { onClickChk(item.name, 'required') }}
-                            />
+                                checked={item.required} onClick={() => { onClickChk(item.name, 'required') }} />
                         </div>
                         <div className='flex md:justify-center'>
                             <CheckBox label='¿Visible en el formulario?' name='visible' value='required' checked={item.disabled} onClick={() => { onClickChk(item.name, 'disabled') }} />
@@ -32,14 +30,13 @@ function SalesForm({ showCampos, handleShowCampos, dataForm, onClickChk, showFie
 
                     </div>
                 ))}
-                <div className='relative py-2 space-y-2'>
-                    <hr className="border-t border-gray-400"></hr>
-                    <p className='font-bold'>Configuración del uso de datos</p>
-                    <p >A continuación ingresa el texto de la politica de uso de datos que deseas asociar:</p>
-                    <TextAreaInput name='usagePolicy' label='' />
-                </div>
+
             </div>
-        </div>
+        </div><div className='relative py-2 space-y-2'>
+                <p className='font-bold'>Configuración del uso de datos</p>
+                <p>A continuación ingresa el texto de la politica de uso de datos que deseas asociar:</p>
+                <TextAreaInput name='usagePolicy' label='' />
+            </div></>
     )
 }
 
