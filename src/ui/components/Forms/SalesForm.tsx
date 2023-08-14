@@ -1,6 +1,7 @@
 // Importamos los componentes necesarios de la librería '@/ui/components', 'formik' y otros módulos requeridos.
+'use client'
 
-import { CheckBox, TextAreaInput } from '@/ui/components'
+import { CheckBox, QuillInput } from '@/ui/components'
 
 // Definimos una interfaz llamada 'Props' que describe las propiedades que acepta el componente.
 interface Props {
@@ -36,13 +37,13 @@ function SalesForm({ dataForm, onClickChk, values }: Props) {
                     <hr className="border-t border-gray-400"></hr>
                     <p className='font-bold'>Politica de Uso de Datos</p>
                     <p >A continuación ingresa el texto de la politica de uso de datos que deseas asociar:</p>
-                    <TextAreaInput name='usagePolicy' label='' values={values} />
+                    <QuillInput name='usagePolicy' label='' values={values} />
                 </div>
                 <div className='relative py-2 space-y-2'>
                     <hr className="border-t border-gray-400"></hr>
                     <p className='font-bold'>Uso de Datos Particular del Aliado</p>
                     <p >A continuación ingresa el texto que deseas agregar a la Politica de Uso de Datos para este Aliado:</p>
-                    <TextAreaInput name='usagePolicyParticular' label='' values={values}/>
+                    <QuillInput name='usagePolicyParticular' label='' values={values}/>
                 </div>
             </div>
         </div>

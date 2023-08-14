@@ -5,7 +5,7 @@ import { signout } from '@/request/auth';
 import { useRouter } from 'next/navigation';
 import CookiesUtils from '@/utils/cookieUtils';
 import Dashboard from '@/ui/layouts/Dashboard';
-import { HiUsers } from 'react-icons/hi';
+import { HiUsers, HiShoppingBag } from 'react-icons/hi';
 import { FaNetworkWired } from 'react-icons/fa';
 
 interface Module {
@@ -49,7 +49,7 @@ export default function AdminLayout({
                 for (const child of filteredModules) {
                   if (child.id === 1) {
                     child.children.push({
-                      description: 'Registrar Usuarios',
+                      description: 'Crear usuarios',
                       path: '/dashboard/user',
                     })
                   }
@@ -57,11 +57,11 @@ export default function AdminLayout({
               } else {
                 filteredModules.push({
                   id: 1,
-                  description: 'Usuarios',
+                  description: 'GESTIÓN DE USUARIOS',
                   icon: HiUsers,
                   children: [
                     {
-                      description: 'Registrar Usuarios',
+                      description: 'Crear usuarios',
                       path: '/dashboard/user',
                     }
                   ],
@@ -76,7 +76,7 @@ export default function AdminLayout({
                 for (const child of filteredModules) {
                   if (child.id === 1) {
                     child.children.push({
-                      description: 'Actualizar Usuarios',
+                      description: 'Editar usuarios',
                       path: '/dashboard/user/edit',
                     })
                   }
@@ -102,9 +102,13 @@ export default function AdminLayout({
             if (!exists) {
               filteredModules.push({
                 id: 3,
-                description: 'Gestionar Roles',
-                path: '/dashboard/role',
-                children: [],
+                description: 'GESTIÓN DE ROLES',
+                children: [
+                  {
+                    description: 'Crear y editar roles',
+                    path: '/dashboard/role',
+                  }
+                ],
                 icon: FaNetworkWired
               });
             }
@@ -112,6 +116,28 @@ export default function AdminLayout({
         }
       }
     }
+
+    //TODO: asociar a los permisos del usuario
+    filteredModules.push({
+      id: 4,
+      description: 'GESTIÓN DE PRODUCTOS',
+      icon: HiShoppingBag,
+      children: [
+        {
+          description: 'Agregar productos',
+          path: '/dashboard/products',
+        },
+        {
+          description: 'Editar productos',
+          path: '/dashboard/user',
+        },
+        {
+          description: 'Productos disponibles',
+          path: '/dashboard/user',
+        }
+      ],
+
+    });
 
     return filteredModules;
   };
@@ -128,7 +154,7 @@ export default function AdminLayout({
 
   return (
     <Dashboard logout={logout} modules={modules}>
-      <div className='w-full overflow-y-scroll h-93'>
+      <div className='w-full overflow-y-scroll h-90'>
         {children}
       </div>
       {/* {children} */}
