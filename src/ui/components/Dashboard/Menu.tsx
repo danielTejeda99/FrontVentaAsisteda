@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link'
 import { Sidebar } from 'flowbite-react';
+import { BiLogOut } from 'react-icons/bi';
 
 // Definimos una interfaz llamada Props que describe las propiedades que acepta el componente.
 interface Props {
@@ -8,13 +9,11 @@ interface Props {
     modules: object[];  // Un array de objetos que contiene la información de los módulos del menú.
 }
 
-  
 // Declaramos el componente funcional Menu, que acepta las propiedades especificadas en la interfaz Props.
-const Menu: React.FC<Props> = ({ modules }) => {
+const Menu: React.FC<Props> = ({ handleSignout, modules }) => {
 
     return (
-
-        <Sidebar aria-label="Sidebar with multi-level dropdown example" className='hidden md:block border' >
+        <Sidebar aria-label="Sidebar with multi-level dropdown example" className='hidden md:block border'>
             <Sidebar.Items>
                 <Sidebar.ItemGroup>
                     {modules.map((item: any, index) => (
@@ -32,6 +31,7 @@ const Menu: React.FC<Props> = ({ modules }) => {
                                 >
                                     {item.children.map((child: any, index: number) => (
                                         <Sidebar.Item
+                                            icon={child.icon}
                                             key={index}
                                         >
                                             <div className='flex items-center space-x-2'>
@@ -48,12 +48,18 @@ const Menu: React.FC<Props> = ({ modules }) => {
                                 :
                                 <Sidebar.Item
                                     icon={item.icon}
-
                                 >
                                     <Link href={item.path}>{item.description}</Link>
                                 </Sidebar.Item>}
+
                         </div>
                     ))}
+                    <Sidebar.Item
+                    >
+                        <BiLogOut className="mr-2 h-5 w-5 inline" />
+                        <span onClick={handleSignout}>Cerrar sesión</span>
+                    </Sidebar.Item>
+
 
 
                 </Sidebar.ItemGroup>
@@ -62,4 +68,4 @@ const Menu: React.FC<Props> = ({ modules }) => {
     )
 }
 
-export default Menu
+export default Menu;

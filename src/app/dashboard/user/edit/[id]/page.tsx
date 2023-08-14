@@ -8,19 +8,19 @@ import { useSelector } from 'react-redux';
 
 export default function EditUser() {
     const dataForm = useSelector((state: any) => state.userSalesFormReducer.saleForm);
+    const nonEssentialForm = useSelector((state: any) => state.userNonEssentialFormReducer.nonEssentialForm);
     const userEdit = useSelector((state: any) => state.userEditReducer);
     const idDataForm = useSelector((state: any) => state.userSalesFormReducer.id);
 
     const { getAllUsers,
         showModal, onRequestClose, messageModal, handleEditUser,
-        showCampos, handleShowCampos, selectedRole, selectedTypeId, onChangeSelect, roles, fetchRequest, handleSearchUser,
+        showCampos, handleShowCampos, selectedRole, selectedTypeId, onChangeSelect, roles, fetchRequest, 
         onClickChk, handleUpdateAlliesForm, aliados, onChangeMultiSelect, supervisores,
-        selectedSupervisor, selectedDate, handleDateChange, handleEndDateChange, selectedEndDate, handleGetUserByRol } = UserController(dataForm, userEdit, idDataForm,);
+        selectedSupervisor, selectedDate, handleDateChange, handleEndDateChange, selectedEndDate, handleGetUserByRol, onClickChkNonEssential } = UserController(dataForm, nonEssentialForm, userEdit, idDataForm,);
 
     useEffect(() => {
-        getAllUsers();
+        // getAllUsers();
         fetchRequest();
-        handleSearchUser(1);
         handleGetUserByRol();
     }, []);
 
@@ -31,7 +31,9 @@ export default function EditUser() {
                 dataForm={dataForm} onClickChk={onClickChk} showFields={handleShowCampos} handleUpdateAlliesForm={handleUpdateAlliesForm} type='edit'
                 selectedRole={selectedRole} selectedTypeId={selectedTypeId} onChangeSelect={onChangeSelect}
                 aliados={aliados} onChangeMultiSelect={onChangeMultiSelect} supervisores={supervisores} selectedSupervisor={selectedSupervisor} selectedDate={selectedDate}
-                handleDateChange={handleDateChange} handleEndDateChange={handleEndDateChange} selectedEndDate={selectedEndDate} defaultValueMultiSelect={userEdit.allies} />
+                handleDateChange={handleDateChange} handleEndDateChange={handleEndDateChange} selectedEndDate={selectedEndDate} defaultValueMultiSelect={userEdit.allies} 
+                nonEssentialForm={nonEssentialForm} onClickChkNonEssential={onClickChkNonEssential}
+                />
             <CustomModal isOpen={showModal} onClose={onRequestClose}>
                 <div>
                     <h1>{messageModal.title}</h1>

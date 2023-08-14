@@ -1,6 +1,7 @@
 // Importamos los componentes necesarios de la librería '@/ui/components', 'formik' y otros módulos requeridos.
+'use client'
 
-import { CustomButton, CardComponent, CheckBox, TextAreaInput } from '@/ui/components'
+import { CheckBox, QuillInput } from '@/ui/components'
 
 // Definimos una interfaz llamada 'Props' que describe las propiedades que acepta el componente.
 interface Props {
@@ -8,10 +9,10 @@ interface Props {
 }
 // Declaramos el componente funcional UserForm, que acepta las propiedades especificadas en la interfaz Props.
 
-function SalesForm({ showCampos, handleShowCampos, dataForm, onClickChk, showFields, handleUpdateAlliesForm, type }: Props) {
+function SalesForm({ dataForm, onClickChk,values}: Props) {
     // Definimos reglas de validación para el formulario.
     return (
-        <><div className='py-4 px-6 rounded-xl bg-c4'>
+        <div className='py-4 px-6 rounded-xl bg-c4'>
             <div className='relative space-y-2 '>
                 <p className='font-sanchez text-c2 mb-3 text-xl'>Formulario de venta</p>
             </div>
@@ -27,16 +28,22 @@ function SalesForm({ showCampos, handleShowCampos, dataForm, onClickChk, showFie
                         <div className='flex md:justify-center'>
                             <CheckBox label='¿Visible en el formulario?' name='visible' value='required' checked={item.disabled} onClick={() => { onClickChk(item.name, 'disabled') }} />
                         </div>
-
                     </div>
                 ))}
-
+                <div className='relative py-2 space-y-2'>
+                    <hr className="border-t border-gray-400"></hr>
+                    <p className='font-bold'>Politica de Uso de Datos</p>
+                    <p >A continuación ingresa el texto de la politica de uso de datos que deseas asociar:</p>
+                    <QuillInput name='usagePolicy' label='' values={values} />
+                </div>
+                <div className='relative py-2 space-y-2'>
+                    <hr className="border-t border-gray-400"></hr>
+                    <p className='font-bold'>Uso de Datos Particular del Aliado</p>
+                    <p >A continuación ingresa el texto que deseas agregar a la Politica de Uso de Datos para este Aliado:</p>
+                    <QuillInput name='usagePolicyParticular' label='' values={values}/>
+                </div>
             </div>
-        </div><div className='relative py-2 space-y-2'>
-                <p className='font-bold'>Configuración del uso de datos</p>
-                <p>A continuación ingresa el texto de la politica de uso de datos que deseas asociar:</p>
-                <TextAreaInput name='usagePolicy' label='' />
-            </div></>
+        </div>
     )
 }
 

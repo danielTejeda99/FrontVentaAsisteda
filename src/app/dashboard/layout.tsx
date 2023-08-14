@@ -5,7 +5,7 @@ import { signout } from '@/request/auth';
 import { useRouter } from 'next/navigation';
 import CookiesUtils from '@/utils/cookieUtils';
 import Dashboard from '@/ui/layouts/Dashboard';
-import { HiOfficeBuilding, HiUserGroup } from 'react-icons/hi';
+import { HiOfficeBuilding, HiUserGroup, HiShoppingBag } from 'react-icons/hi';
 
 
 interface Module {
@@ -102,9 +102,13 @@ export default function AdminLayout({
             if (!exists) {
               filteredModules.push({
                 id: 3,
-                description: 'Gestionar Roles',
-                path: '/dashboard/role',
-                children: [],
+                description: 'GESTIÓN DE ROLES',
+                children: [
+                  {
+                    description: 'Crear y editar roles',
+                    path: '/dashboard/role',
+                  }
+                ],
                 icon: HiUserGroup
               });
             }
@@ -112,6 +116,28 @@ export default function AdminLayout({
         }
       }
     }
+
+    //TODO: asociar a los permisos del usuario
+    filteredModules.push({
+      id: 4,
+      description: 'GESTIÓN DE PRODUCTOS',
+      icon: HiShoppingBag,
+      children: [
+        {
+          description: 'Agregar productos',
+          path: '/dashboard/products',
+        },
+        {
+          description: 'Editar productos',
+          path: '/dashboard/user',
+        },
+        {
+          description: 'Productos disponibles',
+          path: '/dashboard/user',
+        }
+      ],
+
+    });
 
     return filteredModules;
   };
@@ -128,7 +154,7 @@ export default function AdminLayout({
 
   return (
     <Dashboard logout={logout} modules={modules}>
-      <div className='w-full overflow-y-scroll h-93 '>
+      <div className='w-full overflow-y-scroll h-90'>
         {children}
       </div>
       {/* {children} */}

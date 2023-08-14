@@ -8,11 +8,13 @@ import { useSelector } from 'react-redux';
 
 export default function User(){
     const dataForm = useSelector((state: any) => state.userSalesFormReducer.saleForm);
+    const nonEssentialForm = useSelector((state: any) => state.userNonEssentialFormReducer.nonEssentialForm);
+
     const {fetchRequest,handleCreateUser,roles,showModal,
          onRequestClose, messageModal,  
         showCampos, handleShowCampos, onChangeSelect, selectedRole, selectedTypeId,
         onClickChk, handleUpdateAlliesForm, handleGetBaseForm, handleGetUserByRol,aliados, onChangeMultiSelect, supervisores,
-        selectedSupervisor,selectedDate,handleDateChange} = UserController(dataForm);    
+        selectedSupervisor,selectedDate,handleDateChange, onClickChkNonEssential} = UserController(dataForm, nonEssentialForm);    
 
     useEffect(() => {
         fetchRequest();
@@ -22,12 +24,12 @@ export default function User(){
 
     return (
         <div className='px-5 py-5 md:px-10  text-black'>
-            <h1 className='font-sanchez text-c2 mb-8 text-xl'>Crear Usuario</h1>
+            <h1 className='font-sanchez text-c2 mb-8 text-xl'>Registrar Usuarios</h1>
             <UserForm onSubmit={handleCreateUser} roles={roles} showCampos={showCampos} handleShowCampos={handleShowCampos} 
                     dataForm={dataForm} onClickChk={onClickChk} showFields={handleShowCampos} handleUpdateAlliesForm={handleUpdateAlliesForm} 
                     onChangeSelect={onChangeSelect} selectedRole={selectedRole} type='create' selectedTypeId={selectedTypeId} aliados={aliados}
                     onChangeMultiSelect={onChangeMultiSelect} supervisores={supervisores} selectedSupervisor={selectedSupervisor} selectedDate={selectedDate}
-                    handleDateChange={handleDateChange}/>
+                    handleDateChange={handleDateChange}  onClickChkNonEssential={onClickChkNonEssential} nonEssentialForm={nonEssentialForm}/>
             <CustomModal isOpen={showModal} onClose={onRequestClose}>
                 <div>
                     <h1>{messageModal.title}</h1>

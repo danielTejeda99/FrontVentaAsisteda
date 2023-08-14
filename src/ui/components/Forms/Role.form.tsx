@@ -92,12 +92,12 @@ const RoleForm = ({ permissions, onSubmit, data, type, permissionsAdd, ...props 
 
                     {/* Botón para enviar el formulario con el texto correspondiente según el tipo de formulario ('create' o 'edit'). */}
                     <div className='flex place-content-end'>
-                    <button type='submit' className='bg-c1 flex py-3 px-5 items-center justify-center rounded-xl w-auto  text-black font-bold mt-5'>
-                        <BiPencil className="mr-2 h-5 w-5" />
-                        {type === 'create' ? 'Crear Rol' : 'Guardar cambios'}
-                    </button>
+                        <button type='submit' className='bg-c1 flex py-3 px-5 items-center justify-center rounded-xl w-auto  text-black font-bold mt-5'>
+                            <BiPencil className="mr-2 h-5 w-5" />
+                            {type === 'create' ? 'Crear Rol' : 'Guardar cambios'}
+                        </button>
                     </div>
-                    
+
 
 
                 </Form>

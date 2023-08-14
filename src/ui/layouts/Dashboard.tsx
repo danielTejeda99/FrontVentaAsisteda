@@ -1,6 +1,5 @@
 import React from 'react'
-import { NavBar, Menu, ToastComponent } from '@/ui/components';
-import { connect } from 'react-redux';
+import { NavBar, Menu} from '@/ui/components';
 import { useAppDispatch } from '@/redux/hooks';
 import { setToast } from '@/redux/slices/toastSlice';
 
@@ -26,13 +25,7 @@ function Dashboard({ logout, modules, children, toast }: Props) {
     }
 
     return (
-        <div>
-            {toast.show &&
-                <div className="container relative">
-                    <div className="centered-div absolute top-1/2 left-1/2 transform -translate-x-1/2 ">
-                        <ToastComponent message={toast.message} type={toast.type} close={onCloseToast}/>
-                    </div>
-                </div>}
+        <div>           
             <NavBar handleSignout={logout} modules={[]}  />
             <div className="flex h-screen ">
                 <Menu handleSignout={logout} modules={modules} />
@@ -42,8 +35,4 @@ function Dashboard({ logout, modules, children, toast }: Props) {
     )
 }
 
-const mapStateToProps = (state: any) => ({
-    toast: state.toastReducer
-});
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

@@ -36,6 +36,12 @@ module.exports = {
         'c2':'#0097AE',
         'c3':'#E6EDF3',
         'c4':'#E6F3F5',
+        green300: '#D9ECEF',
+        green0: '#007587',
+        greenText: '#6B7280',
+        primaryColor: '#0097AE',
+        green200: '#006271',
+        colorText: '#606773'
       },
       width: {
         '15': '15%',
@@ -56,6 +62,7 @@ module.exports = {
         '91': '91%',
         '93': '93%',
         '95': '95%',
+        '200': '200px'
       },
     },
   },
