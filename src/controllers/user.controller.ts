@@ -199,7 +199,8 @@ export default function UserController(dataForm?: any, nonEssentialDataForm?: an
                 allyId: user.userId,
                 attributes: JSON.stringify(dataForm),
                 dataPolicy: user.usagePolicy,
-                noEssentialDataPolicy: JSON.stringify(nonEssentialDataForm)
+                noEssentialDataPolicy: JSON.stringify(nonEssentialDataForm),
+                privateDataPolicy: user.usagePolicyParticular
             }
             const resConfigAlly = await editConfigAlly(token, data, idDataForm);
             if (resConfigAlly.statusCode === 200) {

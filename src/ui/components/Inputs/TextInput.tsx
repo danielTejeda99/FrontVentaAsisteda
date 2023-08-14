@@ -16,7 +16,7 @@ const MyTextInput = ({ label, ...props }: Props) => {
     <div className='flex flex-col'>
       {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold inline w-auto"}>{label}</label>}
       <div className='inline w-full'>
-        <input type="text" id={props.name} className='border border-black-300 px-4 py-2 rounded-md focus:outline-none focus:border-blue-500 w-full' {...field} {...props}/>
+        <input type="text" id={props.name} className='border border-black-300 px-4 py-2 rounded-md focus:outline-none focus:border-blue-500 w-full text-sm' {...field} {...props}/>
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 // Importamos los componentes necesarios de la librería '@/ui/components', 'formik' y otros módulos requeridos.
+'use client'
 import { Form, Field } from 'formik'
 import { TextInput, CustomSelect, MyFormik, SalesForm, DatePicker, MultiSelect, Toggle, NonEssentialForm } from '@/ui/components'
 import { BiPlusCircle } from 'react-icons/bi';

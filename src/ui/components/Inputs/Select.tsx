@@ -17,7 +17,7 @@ const CustomSelect = ({ label, name, data, ...props }: Props) => {
         <div className='flex flex-col'>
             <label htmlFor={name} className={props.labelstyle ?props.labelstyle: "font-bold inline w-auto"}>{label}</label>
 
-            <Field as="select" id={name} name={name} className='border border-black-300 h-full rounded-md focus:outline-none focus:border-blue-500 w-full'
+            <Field as="select" id={name} name={name} className='text-sm border border-black-300 h-full rounded-md focus:outline-none focus:border-blue-500 w-full'
             onChange={props.onChange} value={props.value}>
                 {/* Mapeamos las opciones proporcionadas en la propiedad 'data' y las mostramos como elementos de la lista desplegable */}
 
