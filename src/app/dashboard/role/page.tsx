@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { RoleForm } from '@/ui/components'
 import CustomModal from '@/ui/modals'
-
 import RoleController from '@/controllers/role.controller';
 import { BiPencil } from 'react-icons/bi';
 
@@ -38,6 +37,7 @@ export default function Role() {
                 </div>
 
             ))}
+
             <CustomModal isOpen={showModal} onClose={onRequestClose}>
                 <div>
                     <h1>{messageModal.title}</h1>

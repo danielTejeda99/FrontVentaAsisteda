@@ -102,7 +102,7 @@ export default function AdminLayout({
             if (!exists) {
               filteredModules.push({
                 id: 3,
-                description: 'GESTIÓN DE ROLES',
+                description: 'Gestión de Roles',
                 children: [
                   {
                     description: 'Crear y editar roles',
@@ -120,7 +120,7 @@ export default function AdminLayout({
     //TODO: asociar a los permisos del usuario
     filteredModules.push({
       id: 4,
-      description: 'GESTIÓN DE PRODUCTOS',
+      description: 'Gestión de productos',
       icon: HiShoppingBag,
       children: [
         {
@@ -129,11 +129,11 @@ export default function AdminLayout({
         },
         {
           description: 'Editar productos',
-          path: '/dashboard/user',
+          path: '/dashboard/products/edit',
         },
         {
           description: 'Productos disponibles',
-          path: '/dashboard/user',
+          path: '/dashboard/products/edit',
         }
       ],
 

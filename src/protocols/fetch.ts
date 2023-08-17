@@ -1,6 +1,7 @@
 export const request = async (url: string| undefined,method: string,data: object | undefined,token:string | undefined) => {
     const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
     const apiUrl = `${baseUrl}${url}`//TODO: variable de entorno
+    console.log(apiUrl)
     const header = {
         'Content-Type': 'application/json',
         'accept': 'application/json'

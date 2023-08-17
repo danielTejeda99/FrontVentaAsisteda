@@ -32,6 +32,7 @@ module.exports = {
         yellow: colors.amber,
         pink: colors.fuchsia,
         orange: colors.orange,
+        colmena3: "#FEC82F",
         'c1': '#FEC82F',
         'c2':'#0097AE',
         'c3':'#E6EDF3',
@@ -39,9 +40,11 @@ module.exports = {
         green300: '#D9ECEF',
         green0: '#007587',
         greenText: '#6B7280',
-        primaryColor: '#0097AE',
         green200: '#006271',
-        colorText: '#606773'
+        colorText: '#606773',
+        '#008296': '#008296',
+        blackText: '#25282D'
+
       },
       width: {
         '15': '15%',
@@ -53,6 +56,8 @@ module.exports = {
         '60': '60%',
         '75': '75%',
         '85': '85%',
+        '220': '220px',
+        '320': '320px'
       },
       height: {
         '10': '10%',
@@ -62,7 +67,9 @@ module.exports = {
         '91': '91%',
         '93': '93%',
         '95': '95%',
-        '200': '200px'
+        '100': '100%',
+        '200': '200px',
+        '208': '208px'
       },
     },
   },

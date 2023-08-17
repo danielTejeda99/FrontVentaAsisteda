@@ -12,7 +12,7 @@ interface Props {
 // Declaramos el componente funcional CustomModal, que acepta las propiedades especificadas en la interfaz Props.
 const CustomModal = ({ isOpen, onClose,  children }: Props) => {
   return (
-    <Modal show={isOpen}  popup onClose={onClose}>
+    <Modal show={isOpen}  popup onClose={onClose} size="sm" >
       <Modal.Header />
       <Modal.Body>
         {children}

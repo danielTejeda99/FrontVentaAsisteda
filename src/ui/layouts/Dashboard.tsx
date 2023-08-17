@@ -1,7 +1,5 @@
 import React from 'react'
 import { NavBar, Menu} from '@/ui/components';
-import { useAppDispatch } from '@/redux/hooks';
-import { setToast } from '@/redux/slices/toastSlice';
 
 interface Props {
     logout: any,
@@ -13,16 +11,6 @@ interface Props {
 
 
 function Dashboard({ logout, modules, children, toast }: Props) {
-    const dispatch = useAppDispatch();
-
-    const onCloseToast = () => {
-        const dataAux = {
-            message: '',
-            show: false,
-            type: ''
-        }
-        dispatch(setToast(dataAux))
-    }
 
     return (
         <div>           

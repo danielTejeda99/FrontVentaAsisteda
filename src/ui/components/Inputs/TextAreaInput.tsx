@@ -1,7 +1,9 @@
+// Importamos el componente ErrorMessage y la función useField de 'formik'.
 import { ErrorMessage, useField } from 'formik';
 
+// Definimos una interfaz llamada 'Props' que describe las propiedades que acepta el componente.
 interface Props {
-  label?: string;
+  label?: string;       // Texto que se mostrará junto al campo de texto.
   name: string;        // Nombre del campo (nombre que se utilizará para identificar este campo en el formulario).
   [x: string]: any;    // Otras propiedades opcionales.
 }

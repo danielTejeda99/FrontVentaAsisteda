@@ -10,10 +10,10 @@ export default function CustomButtons({ onClick, title, icon, color, formik, ...
   return (
     <div>
       {formik ? (
-        <button type='submit'  onClick={onClick} className='bg-blue-500 flex py-4 px-3 items-center justify-center rounded-md md:float-right text-white hover:bg-blue-700 w-full md:w-auto'>
+        <button type='submit' {...props} onClick={onClick} className='bg-c1 flex py-2 px-3 items-center justify-center rounded-md md:float-right text-blackText hover:bg-blue-700 w-full md:w-auto font-bold'>
         {title}
         </button>
-      ) : (<Button className={`w-full ${color ? color : 'bg-blue-500'} text-white`} onClick={onClick}>
+      ) : (<Button className={`w-full ${color ? color : 'bg-c1'} text-blackText font-bold`} onClick={onClick}>
         {icon === 'edit' && <BiEdit className="mr-2 h-5 w-5" />}
         {title}
       </Button>)}

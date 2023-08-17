@@ -18,21 +18,27 @@ export default function ProductForm({ itemsHead, data, onSubmit, setSubmit, data
 
 
     return (
-        <div className='px-5'>
+        <div >
             <MyFormik initialValues={initialValues} onSubmit={onSubmit} validation={validations} form={
                 () => (
-                    <Form className='space-y-3 '>
+                    <Form className='space-y-4 '>
                         {/* <CustomButton title="Importar datos"/>                         */}
-                        <div className=' grid grid-cols-3 gap-4'>
-                            <TextInput label='Código del producto' name='productCode' />
-                            <CustomButton formik={true} title='Importar datos' name='submit' onClick={() => setSubmit('code')} />
-                            <TextInput label='Nombre del producto' name='productName' disabled value={data && data.Modules[0].ProductName} />
+                        <div className='grid grid-cols-2 gap-40'>
+                            <div className='grid grid-cols-3'>
+                                <p className='font-bold inline mb-3 text-sm'>Código del producto</p>
+                                <TextInput label='' name='productCode' />
+                                <CustomButton formik={true} title='Importar datos' name='submit' onClick={() => setSubmit('code')} />
+                            </div>
+                            <div className='inline-flex'>
+                                <p className='font-bold inline mb-3 text-sm'>Nombre del producto</p>
+                                <TextInput label='' name='productName' disabled value={data && data.Modules[0].ProductName} />
+                            </div>
                         </div>
                         <TextAreaInput name='productDesc' label='Descripción del producto' value={data && data.description} />
-                        <h1>Planes disponibles</h1>
+                        <h1 className='font-bold mb-3 text-md '>Planes disponibles</h1>
                         <div className='grid grid-cols-2 gap-10'>
-                            {dataTable.map((item: any) => (
-                                <ProductTable itemHead={itemsHead} data={item} />
+                            {dataTable.map((item: any, key: any) => (
+                                <ProductTable itemHead={itemsHead} data={item} key={key} />
                             ))}
                         </div>
                         <TextAreaInput name='exclusions' label='Exclusiones' value={data && data.exclusions} />

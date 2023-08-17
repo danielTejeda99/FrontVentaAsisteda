@@ -1,15 +1,25 @@
+'use client'
 import { signin } from '@/request/auth';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-async function redirectLogin() {
-  const response: any = await signin();
-  const { data } = response;    
-  // Redirigir a la ruta deseada
-  redirect(data); // Aquí asumo que 'data' contiene la ruta de destino 
-}
 
 export default async function  Home(){
-  await redirectLogin();
+  const router = useRouter();
+
+  const redirectLogin = async () => {
+    const response: any = await signin();
+    const { data } = response;  
+    console.log(data)
+    router.push(data);
+  }
+
+  useEffect(() => {
+    redirectLogin();
+    return () => {      
+    }
+  }, [])
+  
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
       <div className="space-y-5 w-3/12">

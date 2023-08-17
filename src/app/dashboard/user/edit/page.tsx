@@ -11,6 +11,7 @@ export default function UserEditById() {
         render,
         showModalEdit, fetchRequest,
         handleGetBaseForm } = UserController();
+
     useEffect(() => {
         getAllUsers();
         handleGetBaseForm();
