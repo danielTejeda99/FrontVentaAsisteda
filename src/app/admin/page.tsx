@@ -7,7 +7,8 @@ import { getUserAndToken } from '@/request/auth';
 import { signout } from '@/request/auth';
 import CookiesUtils from '@/utils/cookieUtils';
 import CustomModal from '@/ui/modals';
-import {KeyComponent} from '@/ui/components'
+import { KeyComponent } from '@/ui/components'
+import { Spinner } from 'flowbite-react';
 
 export default function Admin() {
   const searchParams = useSearchParams();
@@ -53,10 +54,15 @@ export default function Admin() {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
-      <h1>loading...</h1>
+      <div className='text-center'>
+        <Spinner size="xl" color="warning">
+        </Spinner>
+        <p className='text-c2 mt-5 font-sanchez'>Cargando...</p>
+      </div>
+
       <CustomModal isOpen={showModal} onClose={onRequestClose}>
         <div className='flex flex-col items-center justify-center text-center space-y-2'>
-          <KeyComponent/>
+          <KeyComponent />
           <h1 className='text-#008296 font-bold'>{messageModal?.title}</h1>
           <p className='text-greenText text-sm'>{messageModal?.description}</p>
         </div>

@@ -14,7 +14,7 @@ function NonEssentialForm({ dataForm, onClickChk }: Props) {
     <div>
       <div className="relative py-2 space-y-2">
         <hr className="border-t border-gray-400"></hr>
-        <p className="font-bold">Configuración Uso de Datos NO esenciales</p>
+        <p className="font-bold">Uso de Datos NO esenciales</p>
         <p>
           A continuación ingresa el texto de la politica de uso de datos que
           deseas asociar:
@@ -27,7 +27,7 @@ function NonEssentialForm({ dataForm, onClickChk }: Props) {
             className="flex my-8 text-sm"
           >
             <div className="flex ">
-              <Field type="checkbox" name="visible" value="required" className='mr-2 rounded-md' checked={item.disabled} onClick={() => {
+              <Field type="checkbox" name="visible" value="required" className='text-c2  mr-2 rounded-md focus:ring-c2' checked={item.disabled} onClick={() => {
                   onClickChk(item.name);
                 }} />
 

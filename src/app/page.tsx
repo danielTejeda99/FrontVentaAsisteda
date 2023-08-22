@@ -2,6 +2,7 @@
 import { signin } from '@/request/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { Spinner } from 'flowbite-react';
 
 
 export default async function  Home(){
@@ -22,8 +23,10 @@ export default async function  Home(){
   
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
-      <div className="space-y-5 w-3/12">
-        loading...
+      <div className="text-center">
+        <Spinner size="xl" color="warning">
+        </Spinner>
+        <p className='text-c2 mt-5 font-sanchez'>Cargando...</p>
       </div>
     </div>
   )

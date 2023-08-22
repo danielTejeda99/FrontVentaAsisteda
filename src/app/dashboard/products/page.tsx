@@ -7,8 +7,8 @@ import { PlusComponent, FileText } from '@/ui/components'
 export default function Products() {
     const { itemsHead, plans, handleSubmit, setTypeSubmit, dataProduct, messageModal, showModal, onRequestClose } = ProductController();
     return (
-        <div className='p-5 pb-20 space-y-4'>
-            <h1 className='text-c2 text-2xl font-sanchez'>Agregar productos</h1>
+        <div className='p-5 pb-20 space-y-4 text-black'>
+            <h1 className='text-c2 text-xl font-sanchez'>Agregar productos</h1>
             <ProductForm itemsHead={itemsHead} dataTable={plans} onSubmit={handleSubmit} setSubmit={setTypeSubmit} data={dataProduct} />
             <CustomModal isOpen={showModal} onClose={onRequestClose}>
                 <div className='flex flex-col items-center justify-center text-center space-y-2'>

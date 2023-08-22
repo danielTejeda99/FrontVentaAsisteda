@@ -1,7 +1,14 @@
 import React from 'react';
-import { Dropdown, Navbar } from 'flowbite-react';
+import { CustomFlowbiteTheme, Dropdown, Navbar, Flowbite } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 import { HiClipboardList, HiEmojiHappy, HiLockClosed } from 'react-icons/hi';
+
+const customTheme: CustomFlowbiteTheme = {
+    dropdown:{
+        arrowIcon:'hidden'
+    }
+}
+
 
 interface Props {
     handleSignout: any; // Una función que se ejecutará cuando se haga clic en el botón de "Cerrar sesión".
@@ -11,10 +18,11 @@ interface Props {
 
 const NavBar: React.FC<Props> = ({ handleSignout, modules }) => {
     return (
-        <Navbar
+        <div className='h-10 flex shrink-0 w-full'>
+            <Navbar
             fluid
             rounded
-            className='border text-black shadow-md relative h-10'
+            className='border text-black shadow-md w-full'
         >
             <Navbar.Brand>
                 
@@ -22,7 +30,7 @@ const NavBar: React.FC<Props> = ({ handleSignout, modules }) => {
                     Portal Clientes
                 </span>
             </Navbar.Brand>
-
+            <Flowbite theme={{ theme: customTheme }}> 
             <Dropdown
                 inline
                 className='font-bold text-center'
@@ -55,8 +63,13 @@ const NavBar: React.FC<Props> = ({ handleSignout, modules }) => {
                 </Dropdown.Item>
 
             </Dropdown>
+            </Flowbite>
+
+            
 
         </Navbar>
+        </div>
+        
     )
 }
 

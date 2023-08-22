@@ -11,6 +11,10 @@ interface Props {
 export default function StripedRows({ itemHead, data, changeStatus,editUser }: Props) {
     return (
         <div className='overflow-auto'>
+            <div className='text-black px-5 text-sm font-bold flex justify-between mt-8 mb-3'>
+                <p>Usuarios Encontrados</p>
+                <p>N° de Resultados</p>
+            </div>
             <Table >
                 <Table.Head>
                     {itemHead.map((item, index) => (
@@ -68,7 +72,7 @@ export default function StripedRows({ itemHead, data, changeStatus,editUser }: P
 
                             </Table.Cell>
                             <Table.Cell>
-                            <CustomButton title='Editar' onClick={() => editUser(item)} icon='edit'/>
+                            <CustomButton title='Editar'  onClick={() => editUser(item)} icon='edit'/>
                             </Table.Cell>
                             {/* <Table.Cell>
                                 <CustomButton color='bg-orange-400' title={item.isActive ? 'Desactivar' : 'Activar'} onClick={() => changeStatus(item)}/>

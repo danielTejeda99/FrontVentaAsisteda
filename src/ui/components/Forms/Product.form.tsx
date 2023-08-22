@@ -23,14 +23,17 @@ export default function ProductForm({ itemsHead, data, onSubmit, setSubmit, data
                 () => (
                     <Form className='space-y-4 '>
                         {/* <CustomButton title="Importar datos"/>                         */}
-                        <div className='grid grid-cols-2 gap-40'>
-                            <div className='grid grid-cols-3'>
-                                <p className='font-bold inline mb-3 text-sm'>Código del producto</p>
+                        <div className='flex justify-between items-end gap-10'>
+                            <div className='flex items-end justify-center gap-3'>
+                                
+                                <div className='flex items-center'>
+                                <p className='font-bold inline text-sm w-5/6'>Código del producto</p>
                                 <TextInput label='' name='productCode' />
-                                <CustomButton formik={true} title='Importar datos' name='submit' onClick={() => setSubmit('code')} />
+                                </div>
+                                <CustomButton formik={true} className='' title='Importar datos' type='submit' onClick={() => setSubmit('code')} />
                             </div>
-                            <div className='inline-flex'>
-                                <p className='font-bold inline mb-3 text-sm'>Nombre del producto</p>
+                            <div className='flex items-center justify-center gap-3'>
+                                <p className='font-bold inline text-sm w-5/6'>Nombre del producto</p>
                                 <TextInput label='' name='productName' disabled value={data && data.Modules[0].ProductName} />
                             </div>
                         </div>
@@ -42,15 +45,18 @@ export default function ProductForm({ itemsHead, data, onSubmit, setSubmit, data
                             ))}
                         </div>
                         <TextAreaInput name='exclusions' label='Exclusiones' value={data && data.exclusions} />
-                        <div className=' grid grid-cols-3 gap-4'>
+                        <div className=' grid grid-cols-3 gap-4 place-content-center'>
                             <TextInput label='Edad de adquisición' name='acquisitionAge' disabled value={data && `${data.Modules[0].ProductAgeAcquireStart}-${data.Modules[0].ProductAgeAcquireEnd} años`} />
                             <TextInput label='Edad de renovación' name='renewalAge' disabled value={data && `${data.Modules[0].ProductAgeRenewStart}-${data.Modules[0].ProductAgeRenewEnd} años`} />
                             <TextInput label='Valor del cúmulo' name='cumulusValue' disabled value={data && data.Modules[0].CumulosValue} />
                             <TextInput label='Ramo del producto' name='productBouquet' disabled />
-                            <CheckBox label='Permite incluir beneficiarios'
-                                name="beneficiaries" />
+                            
+                            
+                                <CheckBox label='Permite incluir beneficiarios'
+                            name="beneficiaries" value='required' />
                             <CheckBox label='Renovación automatica'
-                                name="Renewal" checked={data && data.Modules[0].RenewAutomatic == 'T' ? true : false} />
+                            name="Renewal" checked={data && data.Modules[0].RenewAutomatic == 'T' ? true : false} value='required' />
+                               
                         </div>
 
                         <CustomButton formik={true} title='Agregar producto' name='submit' onClick={() => setSubmit('create')} />

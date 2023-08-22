@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { MyFormik } from '@/ui/components'
 import { Form } from 'formik'
 import { TextInput } from '@/ui/components'
-import { BiSearch } from 'react-icons/bi';
+import { BiSearch } from 'react-icons/bi'
+
 
 interface Props {
   submit: Function
@@ -25,23 +26,18 @@ export default function SearchForm({ submit }: Props) {
         }}
         onSubmit={(value: string) => submit(value)}
         form={() => (
-          <Form className='flex text-black'>
-            <label className='relative'>
-
-              <div className='absolute top-2 ml-1'>
-
-                <BiSearch className="mr-2 h-5 w-5 inline" />
-
-              </div><TextInput
-
+          <Form className='flex flex-col md:flex-row gap-2 justify-between text-black w-full'>
+            <label className='flex flex-col md:flex-row md:items-center md:w-80'>
+              <p className='font-bold text-sm w-auto shrink-0 mr-2'>Buscar Usuario</p>
+              <div className='w-full mb-4 md:mb-0'>
+              <TextInput
                 label=""
-
                 name="value"
-
-                className="pl-7 rounded-lg"
-
-              /></label>
-            <button type='submit' className='border px-5 bg-blue-500 hover:bg-blue-700 text-white rounded-md ml-5'>Buscar</button>
+              />
+              </div>
+              
+              </label>
+            <button type='submit' className='flex justify-center items-center bg-c1 px-5 rounded-xl text-black font-bold w-auto h-[35px] md:h-auto'><BiSearch className="mr-2 h-5 w-5 inline" />Buscar</button>
           </Form>
         )
         }

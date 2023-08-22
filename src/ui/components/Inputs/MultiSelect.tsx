@@ -10,7 +10,7 @@ const MultiSelect = ({ label, options,onChange,defaultValue, ...props }: Props) 
 
     return (
         <div className='flex flex-col'>
-            {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold inline w-auto  text-sm"}>{label}</label>}
+            {label && <label htmlFor={props.id || props.name} className={props.labelstyle ? props.labelstyle : "font-bold inline w-auto mb-3 text-sm"}>{label}</label>}
             <div className='inline w-full'>
                 <Select
                     isMulti

@@ -35,8 +35,8 @@ export default function EditProductById() {
     }, [alert]);
 
     return (
-        <div className='px-10 py-10 text-black md:px-20'>
-            <h1 className='font-bold mb-10 text-lg text-[#0097AE]'>Productos disponibles</h1>
+        <div className='px-10 py-10 text-black'>
+            <h1 className='mb-10 text-xl font-sanchez text-c2'>Productos disponibles</h1>
             <SearchProductForm submit={(value: string) => searchProduct(value)}/>
             {
                 products.length == 0 || render ? <>
